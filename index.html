@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/vue@3"></script>
+
+<script src="generate.js"></script>
+<script src="app.js" defer></script>
+
+<body>
+    <div id="app">
+        <div class="card">
+            <h1>Password Generation Tool</h1>
+            <p>
+                How it works:
+                <br>
+                - Think of a master password. It should be difficult to guess and, more importantly, easy to remember.
+                <br>
+                - Enter the website name (the word before .com in the url usually) as a "salt". This makes your password
+                unique for each site you visit
+                <br>
+                - Generate the password!
+            </p>
+            <input type="text" @input="generate" v-model="masterPassword" placeholder="Enter the master password">
+            <input type="text" @input="generate" v-model="salt" placeholder="Enter a salt (website name)">
+            <pre>{{hashedPassword}}</pre>
+            <pre>{{bookmarkletText}}</pre>
+        </div>
+    </div>
+</body>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #app {
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+    }
+
+    .card {
+        padding: 1rem;
+        margin: 2rem;
+        display: block;
+        border-radius: 1rem;
+        border: 0px solid;
+        filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+        background-color: #eeeeee;
+    }
+
+    pre {
+        overflow-wrap: break-word;
+        width: 90%;
+        overflow: unset;
+        background-color: #dddddd;
+        padding: 1rem;
+        border-radius: 0.3rem;
+        white-space: normal;
+        color: #222222;
+    }
+
+    p {
+        white-space: pre-wrap;
+    }
+
+</style>
+
+</html>
