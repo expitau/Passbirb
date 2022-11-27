@@ -1,0 +1,99 @@
+/* #region lightMode */
+#main.lightMode {
+    background-color: #eaeaea
+}
+
+#main.lightMode .card {
+    background-color: #ffffff;
+}
+
+#main.lightMode h1 {
+    color: #000000;
+}
+
+#main.lightMode h3 {
+    color: #000000;
+}
+
+#main.lightMode .result {
+    background-color: #33be91;
+    color: #000000;
+}
+
+#main.lightMode .result>button>svg {
+    color: #000000;
+}
+
+#main.lightMode .textbox {
+    background-color: #eaeaea;
+}
+
+#main.lightMode .textbox>input {
+    background-color: #eaeaea;
+    color: #000000;
+}
+
+#main.lightMode .textbox>button {
+    color: #000000;
+}
+
+#main.darkMode svg {
+    color: #000000;
+}
+
+#main.lightMode #messageToast {
+    background-color: #33be91;
+    color: #000000;
+}
+
+/* #endregion */
+
+/* #region darkMode */
+#main.darkMode {
+    background-color: #1a1a1a
+}
+
+#main.darkMode .card {
+    background-color: #262625;
+}
+
+#main.darkMode h1 {
+    color: #ebebeb;
+}
+
+#main.darkMode h3 {
+    color: #ebebeb;
+}
+
+#main.darkMode .result {
+    background-color: #33be91;
+    color: #ebebeb;
+}
+
+#main.darkMode .result>button>svg {
+    color: #ebebeb;
+}
+
+#main.darkMode .textbox {
+    background-color: #1a1a1a;
+}
+
+#main.darkMode .textbox>input {
+    background-color: #1a1a1a;
+    color: #ebebeb;
+}
+
+#main.darkMode .textbox>button {
+    color: #ebebeb;
+}
+
+#main.darkMode svg {
+    color: #ebebeb;
+}
+
+#main.darkMode #messageToast {
+    background-color: #33be91;
+    color: #ebebeb;
+}
+
+/* #endregion */

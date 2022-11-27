@@ -5,18 +5,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="themes.css">
     <title>Document</title>
-</head>
-<script src="https://unpkg.com/vue@3"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1E7Y5YEFBN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-<script src="bundle.js"></script>
-<script src="app.js" defer></script>
+        gtag('config', 'G-1E7Y5YEFBN');
+    </script>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script src="bundle.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
 
 <body>
     <div id="app">
-        <div id="messageToast">Hello world</div>
-        <div class="card">
-            <div class="content">
+        <div :class="{'darkMode': darkMode, 'lightMode': !darkMode}" id="main">
+            <div id="messageToast"></div>
+            <button id="themeToggle" @click="darkMode = !darkMode">
+                <svg v-if="!darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                </svg>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                </svg>
+
+            </button>
+            <div class="card">
                 <h1>Password Generation Tool</h1>
                 <!-- <p>
                     How it works:
@@ -30,7 +56,7 @@
                     <br>
                     - Generate the password!
                 </p> -->
-                <h2>Master Password</h2>
+                <h3>Master Password</h3>
                 <div class="textbox">
                     <input :type="passwordVisible ? 'text' : 'password'" @input="generate" v-model="masterPassword"
                         placeholder="Enter the master password">
@@ -48,7 +74,7 @@
                         </svg>
                     </button>
                 </div>
-                <h2>Key</h2>
+                <h3>Key</h3>
                 <div class="textbox">
                     <input type="text" @input="generate" v-model="salt" placeholder="Enter a key (website name)">
                 </div>
@@ -56,153 +82,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
                   </svg>
                   </button></pre>
+                <!-- <pre>{{bookmarkletText}}</pre> -->
             </div>
-            <!-- <pre>{{bookmarkletText}}</pre> -->
+
+            <!-- <div class="card">
+                <h1>Aaa</h1>
+            </div> -->
         </div>
     </div>
 </body>
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    #app {
-        background-color: #f0f4f7;
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-    }
-
-    .card {
-        margin: 2rem;
-        display: block;
-        border-radius: 1rem;
-        border: 0px solid;
-        filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
-        background-color: #ffffff;
-    }
-
-    .content {
-        display: flex;
-        flex-direction: column;
-        margin: 0 20%;
-    }
-
-    h1 {
-        color: #00a6dd;
-        margin: 1rem auto;
-        text-align: center;
-    }
-
-    h2 {
-        text-transform: uppercase;
-        color: #aaaaaa;
-        font-weight: lighter;
-        font-size: small;
-        margin: 0.8rem 0 0.4rem 0;
-    }
-
-    .result {
-        overflow-wrap: break-word;
-        width: fit-content;
-        margin: 2rem auto;
-        overflow: unset;
-        background-color: #00a6dd;
-        padding: 0.2rem;
-        border-radius: 0.3rem;
-        white-space: normal;
-        color: #f0f4f7;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .result>div {
-        margin: auto 1rem
-    }
-
-    .textbox {
-        background-color: #f0f4f7;
-        border-radius: 0.3rem;
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .textbox>input {
-        background-color: #f0f4f7;
-        overflow-wrap: break-word;
-        width: auto;
-        overflow: unset;
-        padding: 1rem;
-        white-space: normal;
-        color: #222222;
-        border: none;
-        flex: 1;
-    }
-
-    .textbox>button>svg {
-        width: 1.5rem;
-        height: 1.5rem;
-        color: #757575;
-    }
-
-    .result>button>svg {
-        width: 1rem;
-        height: 1rem;
-        color: #f0f4f7;
-    }
-
-    button {
-        border: none;
-        margin: auto;
-        background: none;
-        padding: 0.5rem;
-        cursor: pointer;
-    }
-
-    p {
-        white-space: pre-wrap;
-    }
-
-    #messageToast {
-        opacity: 0;
-        position: fixed;
-        top: 0;
-        padding: 1rem;
-        margin: 1rem;
-        background-color: #00a6dd;
-        z-index: 10;
-        border-radius: 0.3rem;
-        color: #f0f4f7;
-    }
-
-    .fade-in-out {
-        opacity: 0;
-        animation: fade 3s linear;
-    }
-
-
-
-
-    @keyframes fade {
-
-        0%,
-        100% {
-            opacity: 0
-        }
-
-        5%,
-        85% {
-            opacity: 1
-        }
-    }
-
-</style>
 
 </html>

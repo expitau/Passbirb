@@ -6,6 +6,8 @@
     "uglify-js": "^3.17.4"
   },
   "scripts": {
-    "build": "uglifyjs --compress --mangle -- node_modules/argon2-browser/dist/argon2-bundled.min.js password.js > bundle.js"
+    "build": "npm run build:bundle && npm run build:extension",
+    "build:bundle": "uglifyjs --compress --mangle -- node_modules/argon2-browser/dist/argon2-bundled.min.js password.js > bundle.js",
+    "build:extension": "node extension/build.js"
   }
 }

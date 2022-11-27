@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+    padding: 0;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+#main {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+}
+
+.card {
+    margin: 2rem;
+    display: block;
+    border-radius: 1rem;
+    border: 0px solid;
+    filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+    display: flex;
+    flex-direction: column;
+    padding: 0 20%;
+}
+
+h1 {
+    margin: 1rem auto;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+
+h3 {
+    text-transform: uppercase;
+    font-weight: lighter;
+    font-size: small;
+    margin: 0.8rem 0 0.4rem 0;
+}
+
+.result {
+    overflow-wrap: break-word;
+    width: fit-content;
+    margin: 2rem auto;
+    overflow: unset;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    white-space: normal;
+    display: flex;
+    flex-direction: row;
+}
+
+.result>div {
+    margin: auto 1rem
+}
+
+.textbox {
+    border-radius: 0.3rem;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.textbox>input {
+    overflow-wrap: break-word;
+    width: auto;
+    overflow: unset;
+    padding: 1rem;
+    white-space: normal;
+    border: none;
+    flex: 1;
+}
+
+svg {
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+button {
+    border: none;
+    margin: auto;
+    background: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+p {
+    white-space: pre-wrap;
+}
+
+#themeToggle {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 0.2rem;
+    margin: 1rem;
+}
+
+#messageToast {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    padding: 1rem;
+    margin: 1rem;
+    z-index: 10;
+    border-radius: 0.3rem;
+}
+
+.fade-in-out {
+    opacity: 0;
+    animation: fade 3s linear;
+}
+
+@keyframes fade {
+
+    0%,
+    100% {
+        opacity: 0
+    }
+
+    5%,
+    85% {
+        opacity: 1
+    }
+}
