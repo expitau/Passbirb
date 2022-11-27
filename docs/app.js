@@ -20,7 +20,7 @@ createApp({
             passwordVisible: true,
             salt: "",
             hashedPassword: "",
-            darkMode: !window.matchMedia("(prefers-color-scheme: dark)").matches
+            darkMode: window.matchMedia("(prefers-color-scheme: dark)").matches
         }
     },
     methods: {
