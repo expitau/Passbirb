@@ -42,6 +42,7 @@ h3 {
 .result {
     overflow-wrap: break-word;
     width: fit-content;
+    max-width: 100%;
     margin: 2rem auto;
     overflow: unset;
     padding: 0.2rem;
@@ -52,30 +53,40 @@ h3 {
 }
 
 .result>div {
-    margin: auto 1rem
+    margin: auto 1rem;
+    overflow-x: auto;
+    white-space:nowrap;
 }
 
 .textbox {
-    border-radius: 0.3rem;
+    border-radius: 0.5rem;
     display: flex;
     flex-direction: row;
     width: 100%;
     margin: 0 auto;
+    /* padding-right: 1rem; */
 }
 
 .textbox>input {
     overflow-wrap: break-word;
-    width: auto;
     overflow: unset;
+    min-width: 0;
     padding: 1rem;
     white-space: normal;
     border: none;
+    outline: none;
+    border-radius: 0.5rem;
     flex: 1;
+}
+
+.textbox:focus-within {
+    outline: auto;
 }
 
 svg {
     width: 1.3rem;
     height: 1.3rem;
+    flex: none
 }
 
 button {
