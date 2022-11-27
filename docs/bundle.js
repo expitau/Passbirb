@@ -1,0 +1,1 @@
+../function/dist/bundle.js

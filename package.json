@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "npm run build:bundle && npm run build:extension",
-    "build:bundle": "uglifyjs --compress --mangle -- node_modules/argon2-browser/dist/argon2-bundled.min.js password.js > bundle.js",
+    "build:bundle": "uglifyjs --compress --mangle -- node_modules/argon2-browser/dist/argon2-bundled.min.js function/password.js > function/dist/bundle.js",
     "build:extension": "node extension/build.js"
   }
 }
