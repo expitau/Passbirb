@@ -1,6 +1,7 @@
 /* #region lightMode */
 #main.lightMode {
-    background-color: #eaeaea
+    background-color: #eaeaea;
+    color: #000000;
 }
 
 #main.lightMode .card {
@@ -9,6 +10,10 @@
 
 #main.lightMode h1 {
     color: #000000;
+}
+
+#main.lightMode h2 {
+    color: #222222;
 }
 
 #main.lightMode h3 {
@@ -37,7 +42,7 @@
     color: #000000;
 }
 
-#main.darkMode svg {
+#main.lightMode svg {
     color: #000000;
 }
 
@@ -55,14 +60,19 @@
 
 #main.darkMode .card {
     background-color: #262625;
+    color: #dddddd;
 }
 
 #main.darkMode h1 {
-    color: #ebebeb;
+    color: #dddddd;
+}
+
+#main.darkMode h2 {
+    color: #aaaaaa;
 }
 
 #main.darkMode h3 {
-    color: #ebebeb;
+    color: #dddddd;
 }
 
 #main.darkMode .result {

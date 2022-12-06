@@ -82,7 +82,7 @@ async function generatePassword(master, data) {
     if (!password.match(/.{4}[0-9]/g)) password = replaceAt(0, password, '1')
     if (!password.match(/.{4}[a-z]/g)) password = replaceAt(1, password, 'a')
     if (!password.match(/.{4}[A-Z]/g)) password = replaceAt(2, password, 'A')
-    if (!password.match(/.{4}[\-\_]/g)) password = replaceAt(3, password, '=')
+    if (!password.match(/.{4}[\-\_]/g)) password = replaceAt(3, password, '-')
 
     return password
 }
