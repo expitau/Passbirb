@@ -67,21 +67,23 @@ h3 {
     margin: 0 auto;
     /* padding-right: 1rem; */
 
-    input {
-        overflow-wrap: break-word;
-        overflow: unset;
-        min-width: 0;
-        padding: 1rem;
-        white-space: normal;
-        border: none;
-        outline: none;
-        border-radius: 0.5rem;
-        flex: 1;
-    }
+    
+}
 
-    :focus-within {
-        outline: solid;
-    }
+.textbox>input {
+    overflow-wrap: break-word;
+    overflow: unset;
+    min-width: 0;
+    padding: 1rem;
+    white-space: normal;
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    flex: 1;
+}
+
+.textbox:focus-within{
+    outline: solid;
 }
 
 svg {
