@@ -1,6 +1,7 @@
 
 const { createApp } = Vue
 
+// Load a file from an HTTP endpoint
 function loadFile(filePath) {
     var result = null;
     var xmlhttp = new XMLHttpRequest();

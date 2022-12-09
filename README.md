@@ -19,14 +19,14 @@ You should **NOT** use Passbirb if:
 
 ## How does it work?
 
-This password manager uses [Argon2](https://en.wikipedia.org/wiki/Argon2) to derive passwords from a master key. A doubly encoded SHA256 hash of the website salt is used to provide a salt to Argon2 indistinguisable from randomness (double hash is used to limit length information). The algorithm (in pseudocode) is as follows.
+This password manager uses [Argon2](https://en.wikipedia.org/wiki/Argon2) to derive passwords from a master key. A SHA256 hash of the website salt is used to provide a salt to Argon2 indistinguisable from randomness. The algorithm is as follows (in pseudocode, see [password.js](function/password.js) for implementation).
 
 ```py
 # User-provided inputs
 Master_Key = "Top_Secret_Master_Password_123"
 Salt = "wikipedia:1" # Website top-level domain + counter recommended, but not required.
 
-Salt_Hash = Base64Encode(SHA256(SHA256(Salt))) # Final result encoded as Base64, but intermediate SHA256 value is NOT
+Salt_Hash = Base64Encode(SHA256(Salt)) # Encoded as Base64 to preserve entropy in Argon2 node bindings
 
 # Additional options:
 #   parallelism    -  4 threads

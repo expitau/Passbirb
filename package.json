@@ -3,6 +3,7 @@
     "argon2-browser": "^1.18.0"
   },
   "devDependencies": {
+    "nodemon": "^2.0.20",
     "sass": "^1.56.1",
     "uglify-js": "^3.17.4"
   },
@@ -10,6 +11,7 @@
     "build": "npm run build:bundle && npm run build:extension & npm run build:website",
     "build:bundle": "uglifyjs --compress --mangle -- node_modules/argon2-browser/dist/argon2-bundled.min.js function/password.js > function/dist/bundle.js",
     "build:extension": "node function/build/build-extension.js",
-    "build:website": "node function/build/build-website.js"
+    "build:website": "node function/build/build-website.js",
+    "watch:website": "npm exec nodemon -- -w website/src --exec 'npm run build:website' -d 2"
   }
 }
