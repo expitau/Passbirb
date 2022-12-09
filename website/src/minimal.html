@@ -15,8 +15,9 @@
 </head>
 
 <body>
-    <input id="master" oninput="update()" type="text" placeholder="Enter the master password">
-    <input id="salt" oninput="update()" type="text" placeholder="Enter a key (website name)">
+    <input id="master" type="text" placeholder="Enter the master password">
+    <input id="salt" type="text" placeholder="Enter a key (website name)">
+    <button id="generate" onclick="update()">Generate</button>
     <p id="result"></p>
 </body>
 
