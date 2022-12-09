@@ -60,11 +60,11 @@
 }
 
 #main.darkMode {
-  background-color: #262625;
+  background-color: #1a1a1a;
   color: #ebebeb;
 }
 #main.darkMode .card {
-  background-color: #1a1a1a;
+  background-color: #262625;
 }
 #main.darkMode h1 {
   color: #ebebeb;
@@ -83,10 +83,10 @@
   color: #ebebeb;
 }
 #main.darkMode .textbox {
-  background-color: #262625;
+  background-color: #1a1a1a;
 }
 #main.darkMode .textbox > input {
-  background-color: #262625;
+  background-color: #1a1a1a;
   color: #ebebeb;
 }
 #main.darkMode .textbox > button {
