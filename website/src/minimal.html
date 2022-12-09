@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PassBirb</title>
+    <script async src="bundle.js"></script>
+    <script>
+        function update() {
+            generatePassword(document.getElementById('master').value, document.getElementById('salt').value).then(res => document.getElementById('result').innerText = res)
+        }
+    </script>
+</head>
+
+<body>
+    <input id="master" oninput="update()" type="text" placeholder="Enter the master password">
+    <input id="salt" oninput="update()" type="text" placeholder="Enter a key (website name)">
+    <p id="result"></p>
+</body>
+
+</html>

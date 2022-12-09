@@ -1,0 +1,166 @@
+#main.lightMode {
+    $base: #ffffff;
+    $background: #eaeaea;
+    $primary: #000000;
+    $secondary: #222222;
+    $accent: #42cda1;
+
+    background-color: $background;
+    color: $primary;
+
+    .card {
+        background-color: $base;
+    }
+
+    h1 {
+        color: $primary;
+    }
+
+    h2 {
+        color: $secondary;
+    }
+
+    h3 {
+        color: $primary;
+    }
+
+    .result {
+        background-color: $accent;
+        color: $primary;
+    }
+
+    .result>button>svg {
+        color: $primary;
+    }
+
+    .textbox {
+        background-color: $background;
+    }
+
+    .textbox>input {
+        background-color: $background;
+        color: $primary;
+    }
+
+    .textbox>button {
+        color: $primary;
+    }
+
+    svg {
+        color: $primary;
+    }
+
+    #messageToast {
+        background-color: $accent;
+        color: $primary;
+    }
+
+    .textbox.PasswordStrength0:focus-within {
+        outline: solid $primary;
+        color: $primary;
+    }
+
+    .textbox.PasswordStrength1:focus-within {
+        outline: solid #cd4242;
+        color: #cd4242;
+    }
+
+    .textbox.PasswordStrength2:focus-within {
+        outline: solid #cd8742;
+        color: #cd8742;
+    }
+
+    .textbox.PasswordStrength3:focus-within {
+        outline: solid #cdcd42;
+        color: #cdcd42;
+    }
+
+    .textbox.PasswordStrength4:focus-within {
+        outline: solid #42cd42;
+        color: #42cd42;
+    }
+
+}
+
+#main.darkMode {
+    $base: #1a1a1a;
+    $background: #262625;
+    $primary: #ebebeb;
+    $secondary: #aaaaaa;
+    $accent: #33be91;
+    
+    background-color: $background;
+    color: $primary;
+
+    .card {
+        background-color: $base;
+    }
+
+    h1 {
+        color: $primary;
+    }
+
+    h2 {
+        color: $secondary;
+    }
+
+    h3 {
+        color: $primary;
+    }
+
+    .result {
+        background-color: $accent;
+        color: $primary;
+    }
+
+    .result>button>svg {
+        color: $primary;
+    }
+
+    .textbox {
+        background-color: $background;
+    }
+
+    .textbox>input {
+        background-color: $background;
+        color: $primary;
+    }
+
+    .textbox>button {
+        color: $primary;
+    }
+
+    svg {
+        color: $primary;
+    }
+
+    #messageToast {
+        background-color: $accent;
+        color: $primary;
+    }
+
+    .textbox.PasswordStrength0:focus-within {
+        outline: solid $primary;
+        color: $primary;
+    }
+
+    .textbox.PasswordStrength1:focus-within {
+        outline: solid #bd3232;
+        color: #bd3232;
+    }
+
+    .textbox.PasswordStrength2:focus-within {
+        outline: solid #bd7832;
+        color: #bd7832;
+    }
+
+    .textbox.PasswordStrength3:focus-within {
+        outline: solid #bdbd32;
+        color: #bdbd32;
+    }
+
+    .textbox.PasswordStrength4:focus-within {
+        outline: solid #32bd32;
+        color: #32bd32;
+    }
+}

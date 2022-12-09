@@ -3,7 +3,7 @@
     "argon2-browser": "^1.18.0"
   },
   "devDependencies": {
-    "marked": "^4.2.3",
+    "sass": "^1.56.1",
     "uglify-js": "^3.17.4"
   },
   "scripts": {
