@@ -1,4 +1,9 @@
 {
+  "name": "passbirb",
+  "packageManager": "yarn@3.3.1",
+  "engines": {
+    "yarn": ">= 3.2.0"
+  },
   "dependencies": {
     "argon2-browser": "^1.18.0"
   },
