@@ -1,4 +1,5 @@
 
+// Load VueJS
 const { createApp } = Vue
 
 // Load a file from an HTTP endpoint
@@ -13,12 +14,13 @@ function loadFile(filePath) {
     return result;
 }
 
+// Service to compute hashes in non-blocking thread
 let backgroundServiceWorker;
 
 let app = createApp({
     data() {
         return {
-            masterPassword: "",
+            masterPassword: "", // 
             passwordVisible: true,
             salt: "",
             hashedPassword: "",

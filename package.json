@@ -13,10 +13,10 @@
     "uglify-js": "^3.17.4"
   },
   "scripts": {
-    "build": "npm run build:bundle && npm run build:extension & npm run build:website",
+    "build": "yarn run build:bundle && yarn run build:extension & yarn run build:website",
     "build:bundle": "uglifyjs --compress --mangle -- node_modules/argon2-browser/dist/argon2-bundled.min.js function/password.js > function/dist/bundle.js",
     "build:extension": "node function/build/build-extension.js",
     "build:website": "node function/build/build-website.js",
-    "watch:website": "npm exec nodemon -- -w website/src --exec 'npm run build:website' -d 2"
+    "watch:website": "yarn nodemon -w website/src --exec 'yarn run build:website' -d 2"
   }
 }
