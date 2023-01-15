@@ -1,63 +1,11 @@
+@import "mixins";
+
 #main.lightMode {
-    $base: #ffffff;
-    $background: #eaeaea;
-    $primary: #000000;
-    $secondary: #222222;
-    $accent: #42cda1;
-
-    background-color: $background;
-    color: $primary;
-
-    .card {
-        background-color: $base;
-    }
-
-    h1 {
-        color: $primary;
-    }
-
-    h2 {
-        color: $secondary;
-    }
-
-    h3 {
-        color: $primary;
-    }
-
-    .result {
-        background-color: $accent;
-        color: $primary;
-    }
-
-    .result>button>svg {
-        color: $primary;
-    }
-
-    .textbox {
-        background-color: $background;
-    }
-
-    .textbox>input {
-        background-color: $background;
-        color: $primary;
-    }
-
-    .textbox>button {
-        color: $primary;
-    }
-
-    svg {
-        color: $primary;
-    }
-
-    #messageToast {
-        background-color: $accent;
-        color: $primary;
-    }
+    @include colorTemplate(#ffffff, #eaeaea, #000000, #222222, #42cda1);
 
     .textbox.PasswordStrength0:focus-within {
-        outline: solid $primary;
-        color: $primary;
+        outline: solid #000000;
+        color: #000000;
     }
 
     .textbox.PasswordStrength1:focus-within {
@@ -83,65 +31,11 @@
 }
 
 #main.darkMode {
-    $base: #262625;
-    $background: #1a1a1a;
-    $primary: #ebebeb;
-    $secondary: #aaaaaa;
-    $accent: #33be91;
-    
-    background-color: $background;
-    color: $primary;
-
-    .card {
-        background-color: $base;
-    }
-
-    h1 {
-        color: $primary;
-    }
-
-    h2 {
-        color: $secondary;
-    }
-
-    h3 {
-        color: $primary;
-    }
-
-    .result {
-        background-color: $accent;
-        color: $primary;
-    }
-
-    .result>button>svg {
-        color: $primary;
-    }
-
-    .textbox {
-        background-color: $background;
-    }
-
-    .textbox>input {
-        background-color: $background;
-        color: $primary;
-    }
-
-    .textbox>button {
-        color: $primary;
-    }
-
-    svg {
-        color: $primary;
-    }
-
-    #messageToast {
-        background-color: $accent;
-        color: $primary;
-    }
+    @include colorTemplate(#262625, #1a1a1a, #ebebeb, #aaaaaa, #33be91);
 
     .textbox.PasswordStrength0:focus-within {
-        outline: solid $primary;
-        color: $primary;
+        outline: solid #ebebeb;
+        color: #ebebeb;
     }
 
     .textbox.PasswordStrength1:focus-within {

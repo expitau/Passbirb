@@ -20,7 +20,7 @@ body {
     display: block;
     border-radius: 1rem;
     border: 0px solid;
-    filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+    box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
     display: flex;
     flex-direction: column;
     padding: 0 20% 2rem 20%;
@@ -59,6 +59,56 @@ h3 {
     }
 }
 
+.dropdown {
+    position: relative;
+
+    .dropdown-content {
+        position: absolute;
+        width: 100%;
+        margin: 0.2rem 0rem;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0rem;
+        font-size: small;
+        max-height: 12rem;
+        overflow-y: auto;
+
+
+        &>.dropdown-list {
+            display: flex;
+            flex-direction: row;
+            // margin: 0rem 0.5rem;
+
+            &>:first-child {
+                text-align: left;
+                flex: 1;
+                padding: 1rem;
+                height: 100%
+            }
+
+            &>:last-child {
+                height: 100%;
+                padding: 0.5rem auto;
+            }
+
+        }
+    }
+
+    // .item {
+    //     display: flex;
+    //     flex-direction: row;
+    //     width: 100%;
+    //     margin: 0 auto;
+
+    //     :first-child {
+    //         flex: 1;
+    //         display: flex;
+    //         flex-direction: column;
+    //         justify-content: center;
+    //         padding: 0rem 0rem 0rem 1rem;
+    //     }
+    // }
+}
+
 .textbox {
     border-radius: 0.5rem;
     display: flex;
@@ -67,7 +117,7 @@ h3 {
     margin: 0 auto;
     /* padding-right: 1rem; */
 
-    
+
 }
 
 .textbox>input {
@@ -82,7 +132,7 @@ h3 {
     flex: 1;
 }
 
-.textbox:focus-within{
+.textbox:focus-within {
     outline: solid;
 }
 

@@ -20,7 +20,7 @@ body {
   display: block;
   border-radius: 1rem;
   border: 0px solid;
-  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   padding: 0 20% 2rem 20%;
@@ -56,6 +56,34 @@ h3 {
   margin: auto 1rem;
   overflow-x: auto;
   white-space: nowrap;
+}
+
+.dropdown {
+  position: relative;
+}
+.dropdown .dropdown-content {
+  position: absolute;
+  width: 100%;
+  margin: 0.2rem 0rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0rem;
+  font-size: small;
+  max-height: 12rem;
+  overflow-y: auto;
+}
+.dropdown .dropdown-content > .dropdown-list {
+  display: flex;
+  flex-direction: row;
+}
+.dropdown .dropdown-content > .dropdown-list > :first-child {
+  text-align: left;
+  flex: 1;
+  padding: 1rem;
+  height: 100%;
+}
+.dropdown .dropdown-content > .dropdown-list > :last-child {
+  height: 100%;
+  padding: 0.5rem auto;
 }
 
 .textbox {

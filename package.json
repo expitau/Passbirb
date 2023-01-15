@@ -17,6 +17,6 @@
     "build:bundle": "uglifyjs --compress --mangle -- node_modules/argon2-browser/dist/argon2-bundled.min.js function/password.js > function/dist/bundle.js",
     "build:extension": "node function/build/build-extension.js",
     "build:website": "node function/build/build-website.js",
-    "watch:website": "yarn nodemon -w website/src --exec 'yarn run build:website' -d 2"
+    "watch:website": "yarn nodemon -w website/src --ext '*' --exec 'yarn run build:website' -d 2"
   }
 }

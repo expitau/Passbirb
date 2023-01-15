@@ -24,12 +24,25 @@
 #main.lightMode .textbox {
   background-color: #eaeaea;
 }
-#main.lightMode .textbox > input {
+#main.lightMode .textbox input {
   background-color: #eaeaea;
   color: #000000;
 }
-#main.lightMode .textbox > button {
+#main.lightMode .textbox button {
   color: #000000;
+}
+#main.lightMode .dropdown-content {
+  color: #222222;
+  background-color: #eaeaea;
+}
+#main.lightMode .dropdown-content > .dropdown-list:hover {
+  background-color: #ffffff;
+}
+#main.lightMode .dropdown-content > .dropdown-list button {
+  color: #000000;
+}
+#main.lightMode .dropdown-content > .dropdown-list button:first-child {
+  cursor: default;
 }
 #main.lightMode svg {
   color: #000000;
@@ -85,12 +98,25 @@
 #main.darkMode .textbox {
   background-color: #1a1a1a;
 }
-#main.darkMode .textbox > input {
+#main.darkMode .textbox input {
   background-color: #1a1a1a;
   color: #ebebeb;
 }
-#main.darkMode .textbox > button {
+#main.darkMode .textbox button {
   color: #ebebeb;
+}
+#main.darkMode .dropdown-content {
+  color: #aaaaaa;
+  background-color: #1a1a1a;
+}
+#main.darkMode .dropdown-content > .dropdown-list:hover {
+  background-color: #262625;
+}
+#main.darkMode .dropdown-content > .dropdown-list button {
+  color: #ebebeb;
+}
+#main.darkMode .dropdown-content > .dropdown-list button:first-child {
+  cursor: default;
 }
 #main.darkMode svg {
   color: #ebebeb;
