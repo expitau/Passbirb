@@ -64,7 +64,6 @@ export default {
                 this.hashedPassword = ""
                 return
             }
-            console.log(backgroundServiceWorker)
             if (backgroundServiceWorker) {
                 backgroundServiceWorker.onmessage ??= (e) => {
                     this.hashedPassword = e.data
