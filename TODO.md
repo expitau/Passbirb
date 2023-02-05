@@ -1,7 +1,0 @@
-- [x] Split hash computation into different thread
-- [ ] Browser extension improvement
-- [x] Add entropy indicator to side
-- [ ] Documentation / Wiki
-  - [ ] Docker / local
-  - [ ] Cryptography
-  - [ ] Developing

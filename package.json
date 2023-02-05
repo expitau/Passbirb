@@ -1,22 +1,26 @@
 {
   "name": "passbirb",
+  "type": "module",
+  "version": "0.2.0",
   "packageManager": "yarn@3.3.1",
   "engines": {
     "yarn": ">= 3.2.0"
+  },
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
     "argon2-browser": "^1.18.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20",
-    "sass": "^1.56.1",
-    "uglify-js": "^3.17.4"
-  },
-  "scripts": {
-    "build": "yarn run build:bundle && yarn run build:extension & yarn run build:website",
-    "build:bundle": "uglifyjs --compress --mangle -- node_modules/argon2-browser/dist/argon2-bundled.min.js function/password.js > function/dist/bundle.js",
-    "build:extension": "node function/build/build-extension.js",
-    "build:website": "node function/build/build-website.js",
-    "watch:website": "yarn nodemon -w website/src --ext '*' --exec 'yarn run build:website' -d 2"
+    "@astrojs/vue": "^2.0.1",
+    "astro": "^2.0.4",
+    "sass": "^1.58.0",
+    "vue": "^3.2.30"
   }
 }

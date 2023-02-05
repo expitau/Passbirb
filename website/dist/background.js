@@ -1,4 +1,5 @@
-importScripts('bundle.js')
+importScripts('argon2-bundled.min.js')
+importScripts('password.js')
 window = globalThis;
 
 queued = null
