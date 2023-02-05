@@ -9,5 +9,8 @@ export default defineConfig({
   srcDir: './website/src',
   publicDir: './website/public',
   outDir: './website/dist',
-  base: 'Passbirb'
+  base: 'Passbirb',
+  build: {
+    assets: 'assets'
+  }
 });
