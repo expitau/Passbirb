@@ -1,1 +1,295 @@
-body{margin:0;padding:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif}#main{margin:0;padding:2rem 0;width:100vw;height:100vh;box-sizing:border-box;position:fixed;overflow-y:auto}.card{margin:2rem;display:block;border-radius:1rem;border:0px solid;box-shadow:0 3px 10px #0003;display:flex;flex-direction:column;padding:0 20% 2rem}h1{margin:1rem auto;text-align:center;text-transform:uppercase;font-weight:lighter}h3{text-transform:uppercase;font-weight:lighter;font-size:small;margin:.8rem 0 .4rem}.result{overflow-wrap:break-word;width:fit-content;max-width:100%;margin:2rem auto 0;overflow:unset;padding:.2rem;border-radius:.3rem;white-space:normal;display:flex;flex-direction:row}.result div{margin:auto 1rem;overflow-x:auto;white-space:nowrap}.dropdown{position:relative}.dropdown .dropdown-content{position:absolute;width:100%;margin:.2rem 0rem;border-radius:.5rem;padding:.5rem 0rem;font-size:small;max-height:12rem;overflow-y:auto}.dropdown .dropdown-content>.dropdown-list{display:flex;flex-direction:row}.dropdown .dropdown-content>.dropdown-list>:first-child{text-align:left;flex:1;padding:1rem;height:100%}.dropdown .dropdown-content>.dropdown-list>:last-child{height:100%;padding:.5rem auto}.textbox{border-radius:.5rem;display:flex;flex-direction:row;width:100%;margin:0 auto}.textbox>input{overflow-wrap:break-word;overflow:unset;min-width:0;padding:1rem;white-space:normal;border:none;outline:none;border-radius:.5rem;flex:1}.textbox:focus-within{outline:solid}svg{width:1.3rem;height:1.3rem;flex:none}button{border:none;margin:auto;background:none;padding:.5rem;cursor:pointer}p{white-space:normal;margin:0}#themeToggle{position:absolute;top:0;left:0;padding:.2rem;margin:1rem;z-index:2}#messageToast{opacity:0;position:fixed;top:0;padding:1rem;margin:1rem;z-index:3;pointer-events:none;border-radius:.3rem}.fade-in-out{opacity:0;animation:fade 3s linear}@keyframes fade{0%,to{opacity:0}5%,85%{opacity:1}}#main.lightMode{background-color:#eaeaea;color:#000}#main.lightMode .card{background-color:#fff}#main.lightMode h1{color:#000}#main.lightMode h2{color:#222}#main.lightMode h3{color:#000}#main.lightMode .result{background-color:#42cda1;color:#000}#main.lightMode .result>button>svg{color:#000}#main.lightMode .textbox{background-color:#eaeaea}#main.lightMode .textbox input{background-color:#eaeaea;color:#000}#main.lightMode .textbox button{color:#000}#main.lightMode .dropdown-content{color:#222;background-color:#eaeaea}#main.lightMode .dropdown-content>.dropdown-list:hover{background-color:#fff}#main.lightMode .dropdown-content>.dropdown-list button{color:#000}#main.lightMode .dropdown-content>.dropdown-list button:first-child{cursor:default}#main.lightMode svg{color:#000}#main.lightMode #messageToast{background-color:#42cda1;color:#000}#main.lightMode .textbox.PasswordStrength0:focus-within{outline:solid #000000;color:#000}#main.lightMode .textbox.PasswordStrength1:focus-within{outline:solid #cd4242;color:#cd4242}#main.lightMode .textbox.PasswordStrength2:focus-within{outline:solid #cd8742;color:#cd8742}#main.lightMode .textbox.PasswordStrength3:focus-within{outline:solid #cdcd42;color:#cdcd42}#main.lightMode .textbox.PasswordStrength4:focus-within{outline:solid #42cd42;color:#42cd42}#main.darkMode{background-color:#1a1a1a;color:#ebebeb}#main.darkMode .card{background-color:#262625}#main.darkMode h1{color:#ebebeb}#main.darkMode h2{color:#aaa}#main.darkMode h3{color:#ebebeb}#main.darkMode .result{background-color:#33be91;color:#ebebeb}#main.darkMode .result>button>svg{color:#ebebeb}#main.darkMode .textbox{background-color:#1a1a1a}#main.darkMode .textbox input{background-color:#1a1a1a;color:#ebebeb}#main.darkMode .textbox button{color:#ebebeb}#main.darkMode .dropdown-content{color:#aaa;background-color:#1a1a1a}#main.darkMode .dropdown-content>.dropdown-list:hover{background-color:#262625}#main.darkMode .dropdown-content>.dropdown-list button{color:#ebebeb}#main.darkMode .dropdown-content>.dropdown-list button:first-child{cursor:default}#main.darkMode svg{color:#ebebeb}#main.darkMode #messageToast{background-color:#33be91;color:#ebebeb}#main.darkMode .textbox.PasswordStrength0:focus-within{outline:solid #ebebeb;color:#ebebeb}#main.darkMode .textbox.PasswordStrength1:focus-within{outline:solid #bd3232;color:#bd3232}#main.darkMode .textbox.PasswordStrength2:focus-within{outline:solid #bd7832;color:#bd7832}#main.darkMode .textbox.PasswordStrength3:focus-within{outline:solid #bdbd32;color:#bdbd32}#main.darkMode .textbox.PasswordStrength4:focus-within{outline:solid #32bd32;color:#32bd32}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+}
+#main {
+    margin: 0;
+    padding: 2rem 0;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    position: fixed;
+    overflow-y: auto;
+}
+.card {
+    margin: 2rem;
+    display: block;
+    border-radius: 1rem;
+    border: 0px solid;
+    box-shadow: 0 3px 10px #0003;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20% 2rem;
+}
+h1 {
+    margin: 1rem auto;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+h3 {
+    text-transform: uppercase;
+    font-weight: lighter;
+    font-size: small;
+    margin: 0.8rem 0 0.4rem;
+}
+.result {
+    overflow-wrap: break-word;
+    width: fit-content;
+    max-width: 100%;
+    margin: 2rem auto 0;
+    overflow: unset;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    white-space: normal;
+    display: flex;
+    flex-direction: row;
+}
+.result div {
+    margin: auto 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.dropdown {
+    position: relative;
+}
+.dropdown .dropdown-content {
+    position: absolute;
+    width: 100%;
+    margin: 0.2rem 0rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0rem;
+    font-size: small;
+    max-height: 12rem;
+    overflow-y: auto;
+}
+.dropdown .dropdown-content > .dropdown-list {
+    display: flex;
+    flex-direction: row;
+}
+.dropdown .dropdown-content > .dropdown-list > :first-child {
+    text-align: left;
+    flex: 1;
+    padding: 1rem;
+    height: 100%;
+}
+.dropdown .dropdown-content > .dropdown-list > :last-child {
+    height: 100%;
+    padding: 0.5rem auto;
+}
+.textbox {
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 auto;
+}
+.textbox > input {
+    overflow-wrap: break-word;
+    overflow: unset;
+    min-width: 0;
+    padding: 1rem;
+    white-space: normal;
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    flex: 1;
+}
+.textbox:focus-within {
+    outline: solid;
+}
+svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    flex: none;
+}
+button {
+    border: none;
+    margin: auto;
+    background: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+p {
+    white-space: normal;
+    margin: 0;
+}
+#themeToggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.2rem;
+    margin: 1rem;
+    z-index: 2;
+}
+#messageToast {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    padding: 1rem;
+    margin: 1rem;
+    z-index: 3;
+    pointer-events: none;
+    border-radius: 0.3rem;
+}
+.fade-in-out {
+    opacity: 0;
+    animation: fade 3s linear;
+}
+@keyframes fade {
+    0%,
+    to {
+        opacity: 0;
+    }
+    5%,
+    85% {
+        opacity: 1;
+    }
+}
+#main.lightMode {
+    background-color: #eaeaea;
+    color: #000;
+}
+#main.lightMode .card {
+    background-color: #fff;
+}
+#main.lightMode h1 {
+    color: #000;
+}
+#main.lightMode h2 {
+    color: #222;
+}
+#main.lightMode h3 {
+    color: #000;
+}
+#main.lightMode .result {
+    background-color: #42cda1;
+    color: #000;
+}
+#main.lightMode .result > button > svg {
+    color: #000;
+}
+#main.lightMode .textbox {
+    background-color: #eaeaea;
+}
+#main.lightMode .textbox input {
+    background-color: #eaeaea;
+    color: #000;
+}
+#main.lightMode .textbox button {
+    color: #000;
+}
+#main.lightMode .dropdown-content {
+    color: #222;
+    background-color: #eaeaea;
+}
+#main.lightMode .dropdown-content > .dropdown-list:hover {
+    background-color: #fff;
+}
+#main.lightMode .dropdown-content > .dropdown-list button {
+    color: #000;
+}
+#main.lightMode .dropdown-content > .dropdown-list button:first-child {
+    cursor: default;
+}
+#main.lightMode svg {
+    color: #000;
+}
+#main.lightMode #messageToast {
+    background-color: #42cda1;
+    color: #000;
+}
+#main.lightMode .textbox.PasswordStrength0:focus-within {
+    outline: solid #000000;
+    color: #000;
+}
+#main.lightMode .textbox.PasswordStrength1:focus-within {
+    outline: solid #cd4242;
+    color: #cd4242;
+}
+#main.lightMode .textbox.PasswordStrength2:focus-within {
+    outline: solid #cd8742;
+    color: #cd8742;
+}
+#main.lightMode .textbox.PasswordStrength3:focus-within {
+    outline: solid #cdcd42;
+    color: #cdcd42;
+}
+#main.lightMode .textbox.PasswordStrength4:focus-within {
+    outline: solid #42cd42;
+    color: #42cd42;
+}
+#main.darkMode {
+    background-color: #1a1a1a;
+    color: #ebebeb;
+}
+#main.darkMode .card {
+    background-color: #262625;
+}
+#main.darkMode h1 {
+    color: #ebebeb;
+}
+#main.darkMode h2 {
+    color: #aaa;
+}
+#main.darkMode h3 {
+    color: #ebebeb;
+}
+#main.darkMode .result {
+    background-color: #33be91;
+    color: #ebebeb;
+}
+#main.darkMode .result > button > svg {
+    color: #ebebeb;
+}
+#main.darkMode .textbox {
+    background-color: #1a1a1a;
+}
+#main.darkMode .textbox input {
+    background-color: #1a1a1a;
+    color: #ebebeb;
+}
+#main.darkMode .textbox button {
+    color: #ebebeb;
+}
+#main.darkMode .dropdown-content {
+    color: #aaa;
+    background-color: #1a1a1a;
+}
+#main.darkMode .dropdown-content > .dropdown-list:hover {
+    background-color: #262625;
+}
+#main.darkMode .dropdown-content > .dropdown-list button {
+    color: #ebebeb;
+}
+#main.darkMode .dropdown-content > .dropdown-list button:first-child {
+    cursor: default;
+}
+#main.darkMode svg {
+    color: #ebebeb;
+}
+#main.darkMode #messageToast {
+    background-color: #33be91;
+    color: #ebebeb;
+}
+#main.darkMode .textbox.PasswordStrength0:focus-within {
+    outline: solid #ebebeb;
+    color: #ebebeb;
+}
+#main.darkMode .textbox.PasswordStrength1:focus-within {
+    outline: solid #bd3232;
+    color: #bd3232;
+}
+#main.darkMode .textbox.PasswordStrength2:focus-within {
+    outline: solid #bd7832;
+    color: #bd7832;
+}
+#main.darkMode .textbox.PasswordStrength3:focus-within {
+    outline: solid #bdbd32;
+    color: #bdbd32;
+}
+#main.darkMode .textbox.PasswordStrength4:focus-within {
+    outline: solid #32bd32;
+    color: #32bd32;
+}
