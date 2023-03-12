@@ -1,5 +1,81 @@
+<template>
+  <div id="messageToast"></div>
+  <div class="view main">
+    <h1>Passbirb</h1>
+    <!-- <h3 class="indicator">{{ Math.floor(passwordEntropy * 10) / 10 }}/24</h3> -->
+    <div :style="{opacity: passwordIndicatorVisible ? '100%' : '0%'}" class="indicator">{{ passwordEntropyAsTime }}</div>
+    <div class="textbox surface">
+      <input @focus="passwordIndicatorVisible = true" @focusout="passwordIndicatorVisible = false" :type="passwordVisible ? 'text' : 'password'" @input="generate" v-model="masterPassword"
+        placeholder="Enter the master password" />
+      <button @click="passwordVisible = !passwordVisible">
+        <span v-if="!passwordVisible" class="material-symbols-outlined svg">visibility</span>
+        <span v-else class="material-symbols-outlined svg">visibility_off</span>
+      </button>
+    </div>
+    <div class="dropdown surface">
+      <div class="textbox">
+        <input type="text" @keyup.enter="
+          saveSalt();
+        saltHistoryVisible = false" @input="generate" v-model="salt" @focus="saltHistoryVisible = true"
+          @focusout="onDropdownUnfocused" placeholder="Enter a key (website name)" />
+        <button @click="saltHistoryVisible = !saltHistoryVisible">
+          <span v-if="!saltHistoryVisible" class="material-symbols-outlined svg">arrow_drop_down</span>
+          <span v-else class="material-symbols-outlined svg">arrow_drop_up</span>
+        </button>
+      </div>
+      <div v-if="saltHistoryVisible" class="dropdown-content">
+        <div class="dropdown-list" v-if="historySearchResults.length > 0" v-for="item in historySearchResults">
+          <button @click="
+            salt = item.value;
+          saltHistoryVisible = false;
+          generate();
+          saveSalt();">
+            {{ item.value }}
+          </button>
+          <button @click="
+            saltHistory.splice(item.idx, 1);
+          saveAppState();">
+            <span class="material-symbols-outlined svg">close</span>
+          </button>
+        </div>
+        <div v-else-if="saltHistory.length > 0" style="padding: 0.5rem">
+          No results
+        </div>
+        <div v-else style="padding: 0.5rem">
+          No items to show in history
+        </div>
+      </div>
+    </div>
+    <div class="result" v-if="masterPassword.length > 0 && salt.length > 0">
+      <div>{{ hashedPassword }}</div>
+      <button @click="
+        copyText(hashedPassword);
+      saveSalt(); ">
+        <span class="material-symbols-outlined svg">content_copy</span>
+      </button>
+    </div>
+    <span v-if="!hasViewScrolled" class="expand material-symbols-outlined svg">expand_more</span>
+  </div>
+  <div class="view">
+    <div class="about">
+      <div class="about-flex">
+        <div>
+          <h1>About</h1>
+          <div style="text-align: center;">
+            This is a utility for managing website passwords without
+            storing them in a file or database. Passbirb generates
+            unique cryptographically-secure passwords on the fly
+            without saving any information.
+          </div>
+        </div>
+        <component :is="Codeblock" />
+      </div>
+    </div>
+  </div>
+</template>
+
 <script lang="ts">
-import Codeblock from './Codeblock.vue'
+import Codeblock from './Codeblock.vue';
 import { shallowRef } from 'vue';
 const VERSION_ID = '0.4.1';
 
@@ -37,6 +113,11 @@ function showMessage(message) {
 }
 
 export default {
+  created() {
+    document.getElementById('main').onscroll = () => {
+      this.hasViewScrolled = true;
+    };
+  },
   data() {
     return {
       masterPassword: '',
@@ -47,6 +128,8 @@ export default {
       hashedPassword: '',
       darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
       Codeblock: shallowRef(Codeblock),
+      hasViewScrolled: false,
+      passwordIndicatorVisible: false,
       ...loadLocalStorage(),
     };
   },
@@ -108,6 +191,40 @@ export default {
       // @ts-ignore
       return window.zxcvbn(this.masterPassword).guesses_log10;
     },
+    passwordEntropyAsTime() {
+      let guesses = this.passwordEntropy
+      const intervals = Object.entries({
+        'milliseconds': 1,
+        'seconds': 4,
+        'minutes': 1.778,
+        'hours': 1.778,
+        'days': 1.38,
+        'months': 1.483,
+        'years': 1.079,
+        'thousand years': 3,
+        'million years': 3,
+        'billion years': 3,
+        'trillion years': 3,
+        'quadrillion years': 3,
+        'quintillion years': 3,
+      })
+      let currentTimescale = null
+      for (let i = 0; i < intervals.length; i++) {
+        if (guesses < intervals[i][1]) {
+          break
+        }
+        guesses -= intervals[i][1]
+        currentTimescale = intervals[i][0]
+      }
+
+      if (!currentTimescale) {
+        return 'instantly'
+      }
+      if (guesses > 3) {
+        return `${Math.floor(10 ** ((guesses + 18) % 1))}e${Math.floor(guesses + 18)} years`
+      }
+      return (10**guesses).toFixed(1) + ' ' + currentTimescale
+    },
     historySearchResults() {
       return this.saltHistory
         .map((value, idx) => ({ value, idx }))
@@ -133,93 +250,6 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div id="messageToast"></div>
-  <div class="view main">
-    <h1>Passbirb</h1>
-    <!-- <h3 class="indicator">{{ Math.floor(passwordEntropy * 10) / 10 }}/24</h3> -->
-    <div class="textbox surface" :class="{
-      PasswordStrength0: passwordEntropy == 0,
-      PasswordStrength1: passwordEntropy > 0 && passwordEntropy < 12,
-      PasswordStrength2:
-        passwordEntropy >= 12 && passwordEntropy < 18,
-      PasswordStrength3:
-        passwordEntropy >= 18 && passwordEntropy < 24,
-      PasswordStrength4: passwordEntropy >= 24,
-    }">
-      <input :type="passwordVisible ? 'text' : 'password'" @input="generate" v-model="masterPassword"
-        placeholder="Enter the master password" />
-      <button @click="passwordVisible = !passwordVisible">
-        <span v-if="!passwordVisible" class="material-symbols-outlined svg">visibility</span>
-        <span v-else class="material-symbols-outlined svg">visibility_off</span>
-      </button>
-    </div>
-    <div class="dropdown surface">
-      <div class="textbox">
-        <input type="text" @keyup.enter="
-          saveSalt();
-        saltHistoryVisible = false;
-                              " @input="generate" v-model="salt" @focus="saltHistoryVisible = true"
-          @focusout="onDropdownUnfocused" placeholder="Enter a key (website name)" />
-        <button @click="saltHistoryVisible = !saltHistoryVisible">
-          <span v-if="!saltHistoryVisible" class="material-symbols-outlined svg">arrow_drop_down</span>
-          <span v-else class="material-symbols-outlined svg">arrow_drop_up</span>
-        </button>
-      </div>
-      <div v-if="saltHistoryVisible" class="dropdown-content">
-        <div class="dropdown-list" v-if="historySearchResults.length > 0" v-for="item in historySearchResults">
-          <button @click="
-            salt = item.value;
-          saltHistoryVisible = false;
-          generate();
-          saveSalt();
-                                    ">
-            {{ item.value }}
-          </button>
-          <button @click="
-            saltHistory.splice(item.idx, 1);
-          saveAppState();
-                                    ">
-            <span class="material-symbols-outlined svg">close</span>
-          </button>
-        </div>
-        <div v-else-if="saltHistory.length > 0" style="padding: 0.5rem">
-          No results
-        </div>
-        <div v-else style="padding: 0.5rem">
-          No items to show in history
-        </div>
-      </div>
-    </div>
-    <div class="result" v-if="masterPassword.length > 0 && salt.length > 0">
-      <div>{{ hashedPassword }}</div>
-      <button @click="
-        copyText(hashedPassword);
-      saveSalt();
-                        ">
-        <span class="material-symbols-outlined svg">content_copy</span>
-      </button>
-    </div>
-    <span class="expand material-symbols-outlined svg">expand_more</span>
-  </div>
-  <div class="view">
-    <div class="about">
-      <div class="about-flex">
-        <div>
-          <h1>About</h1>
-          <div>
-            This is a utility for managing website passwords without
-            storing them in a file or database. Passbirb generates
-            unique cryptographically-secure passwords on the fly without
-            saving any information.
-          </div>
-        </div>
-        <component :is="Codeblock" />
-      </div>
-    </div>
-  </div>
-</template>
 
 <style lang="scss">
 #main {
@@ -268,6 +298,7 @@ export default {
 
   .about {
     margin: 10%;
+
     .about-flex {
       display: flex;
       flex-direction: row;
@@ -286,7 +317,7 @@ export default {
 
   &.main>* {
     max-width: 30%;
-    margin: 3rem auto;
+    margin: 0 auto 3rem auto;
     min-width: 20rem;
   }
 
@@ -345,6 +376,21 @@ export default {
     }
   }
 
+  .indicator {
+    margin: 0.5rem auto;
+    text-align: center;
+    font-size: x-small;
+    background-color: var(--md-surface-1);
+
+    max-width: unset;
+    min-width: unset;
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    transition: opacity 0.2s linear;
+  }
+
   .surface {
     // color: var(--md-on-surface);
     background-color: var(--md-surface-1);
@@ -378,10 +424,6 @@ export default {
       border-radius: 0.2rem;
       color: var(--md-on-surface);
     }
-
-    // &:focus-within {
-    //   outline: solid;
-    // }
   }
 
   .dropdown {
@@ -438,7 +480,7 @@ export default {
   }
 
   .expand {
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     left: 0;
     right: 0;
@@ -505,31 +547,6 @@ p {
   white-space: normal;
   margin: 0;
 }
-
-// .textbox.PasswordStrength0:focus-within {
-//   outline: solid var(--password-0);
-//   color: var(--password-0);
-// }
-
-// .textbox.PasswordStrength1:focus-within {
-//   outline: solid var(--password-1);
-//   color: var(--password-1);
-// }
-
-// .textbox.PasswordStrength2:focus-within {
-//   outline: solid var(--password-2);
-//   color: var(--password-2);
-// }
-
-// .textbox.PasswordStrength3:focus-within {
-//   outline: solid var(--password-3);
-//   color: var(--password-3);
-// }
-
-// .textbox.PasswordStrength4:focus-within {
-//   outline: solid var(--password-4);
-//   color: var(--password-4);
-// }
 
 #themeToggle {
   position: absolute;

@@ -4,7 +4,7 @@ import Prism from 'prismjs';
 
 export default {
     data() {
-        let template = `console.log(x)`;
+        let template = `(() => {console.log('Bookmarklet coming soon!')}()`;
         let content = Prism.highlight(template, Prism.languages.javascript, 'javascript');
         console.log(content)
         return {
@@ -16,5 +16,7 @@ export default {
 
 <template>
     <link rel="stylesheet" href="/Passbirb/prism.css">
-    <pre v-html="content"></pre>
+    <div style="background-color: var(--md-surface-0); padding: 2rem; border-radius: 1rem;">
+        <pre v-html="content"></pre>
+    </div>
 </template>
