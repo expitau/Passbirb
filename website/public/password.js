@@ -18,7 +18,7 @@ async function generatePassword(master, data) {
         // convert ArrayBuffer to Array
         const hashArray = Array.from(new Uint8Array(hashBuffer));
 
-        return hashArray
+        return hashArray;
     }
 
     /**
@@ -27,36 +27,40 @@ async function generatePassword(master, data) {
      * @returns A base64 digest
      */
     function b64digest(buffer) {
-        return window.btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
+        return window.btoa(
+            String.fromCharCode.apply(null, new Uint8Array(buffer))
+        );
     }
 
     // The encoded Argon2 string, as Base64 with metadata
-    let encoded = (await argon2.hash({
-        pass: master, // The master password to hash
-        salt: b64digest(await sha256(data)), // Base64 encoding of sha256(data)
-        time: 20, // Apply 20 iterations
-        mem: 1024, // Use 1024kB memory
-        hashLen: 15, // Output 15 bytes of hash (15 * 8 / 6 = 20 Base64 characters)
-        parallelism: 4, // Use 4 threads
-        type: argon2.ArgonType.Argon2id // Harden against both side-channel and GPU cracking
-    })).encoded
+    let encoded = (
+        await argon2.hash({
+            pass: master, // The master password to hash
+            salt: b64digest(await sha256(data)), // Base64 encoding of sha256(data)
+            time: 20, // Apply 20 iterations
+            mem: 1024, // Use 1024kB memory
+            hashLen: 15, // Output 15 bytes of hash (15 * 8 / 6 = 20 Base64 characters)
+            parallelism: 4, // Use 4 threads
+            type: argon2.ArgonType.Argon2id, // Harden against both side-channel and GPU cracking
+        })
+    ).encoded;
 
     // The base64 hash of the master password without metadata
-    let hash = encoded.split("$").pop()
+    let hash = encoded.split('$').pop();
 
     // Replace '+' with '-' and '/' with '_' to be more password-friendly
-    let password = hash.replaceAll(/\+/gi, '-').replaceAll(/\//gi, '_')
+    let password = hash.replaceAll(/\+/gi, '-').replaceAll(/\//gi, '_');
 
     // Set string[index] = char
     function replaceAt(index, string, char) {
-        return string.substring(0, index) + char + string.substring(index + 1)
+        return string.substring(0, index) + char + string.substring(index + 1);
     }
 
     // Add numbers, special characters and uppercase/lowercase if password does not already have it
-    if (!password.match(/.{4}[0-9]/g)) password = replaceAt(0, password, '1')
-    if (!password.match(/.{4}[a-z]/g)) password = replaceAt(1, password, 'a')
-    if (!password.match(/.{4}[A-Z]/g)) password = replaceAt(2, password, 'A')
-    if (!password.match(/.{4}[\-\_]/g)) password = replaceAt(3, password, '-')
+    if (!password.match(/.{4}[0-9]/g)) password = replaceAt(0, password, '1');
+    if (!password.match(/.{4}[a-z]/g)) password = replaceAt(1, password, 'a');
+    if (!password.match(/.{4}[A-Z]/g)) password = replaceAt(2, password, 'A');
+    if (!password.match(/.{4}[\-\_]/g)) password = replaceAt(3, password, '-');
 
-    return password
+    return password;
 }

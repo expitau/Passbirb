@@ -1,25 +1,31 @@
 # Passbirb
 
 ## What is this?
-This is a stateless password manager, a utility for managing website passwords without storing them in a database or file. Unlike traditional password alternatives that keep your passwords on your computer (or worse, in the cloud), Passbirb will regenerate the same unique password anytime you want to login on a new device. 
+
+This is a stateless password manager, a utility for managing website passwords without storing them in a database or file. Unlike traditional password alternatives that keep your passwords on your computer (or worse, in the cloud), Passbirb
+will regenerate the same unique password anytime you want to login on a new device.
 
 ## Who is this for?
+
 You should use Passbirb if:
-- You want your password for every website to be entirely unique, without memorizing a complicated scheme.
-- You're concerned that bad developers like storing your passwords in plaintext.
-- You want *some* protection against phishing attacks.
-- You want the ability to log in to services on guest computers without installing software.
-- You have trust issues.
+
+-   You want your password for every website to be entirely unique, without memorizing a complicated scheme.
+-   You're concerned that bad developers like storing your passwords in plaintext.
+-   You want _some_ protection against phishing attacks.
+-   You want the ability to log in to services on guest computers without installing software.
+-   You have trust issues.
 
 You should **NOT** use Passbirb if:
-- **You can't remember your master password**, or will have trouble keeping it secret.
-- You don't trust my code, and you haven't read through it and/or built it yourself (or you can trust me - I promise it's good).
-- You aren't sure if I will keep my website up indefinitely, and you haven't made a local copy.
-- You don't want to change your password on every website you use.
+
+-   **You can't remember your master password**, or will have trouble keeping it secret.
+-   You don't trust my code, and you haven't read through it and/or built it yourself (or you can trust me - I promise it's good).
+-   You aren't sure if I will keep my website up indefinitely, and you haven't made a local copy.
+-   You don't want to change your password on every website you use.
 
 ## How does it work?
 
-This password manager uses [Argon2](https://en.wikipedia.org/wiki/Argon2) to derive passwords from a master key. A SHA256 hash of the website salt is used to provide a salt to Argon2 indistinguisable from randomness. The algorithm is as follows (in pseudocode, see [password.js](function/password.js) for implementation).
+This password manager uses [Argon2](https://en.wikipedia.org/wiki/Argon2) to derive passwords from a master key. A SHA256 hash of the website salt is used to provide a salt to Argon2 indistinguisable from randomness. The algorithm is as
+follows (in pseudocode, see [password.js](function/password.js) for implementation).
 
 ```py
 # User-provided inputs
@@ -58,6 +64,6 @@ def FormatPassword(key):
         key[2] = 'A'
     if SPECIAL_CHAR not in key[4..]:
         key[3] = '-'
-    
+
     return key
 ```
