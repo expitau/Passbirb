@@ -1,27 +1,28 @@
 <template>
   <div id="messageToast"></div>
-  <div class="view main">
+  <section class="section_main">
     <h1>Passbirb</h1>
-    <!-- <h3 class="indicator">{{ Math.floor(passwordEntropy * 10) / 10 }}/24</h3> -->
-    <div :style="{opacity: passwordIndicatorVisible ? '100%' : '0%'}" class="indicator">{{ passwordEntropyAsTime }}</div>
-    <div class="textbox surface">
-      <input @focus="passwordIndicatorVisible = true" @focusout="passwordIndicatorVisible = false" :type="passwordVisible ? 'text' : 'password'" @input="generate" v-model="masterPassword"
-        placeholder="Enter the master password" />
-      <button @click="passwordVisible = !passwordVisible">
-        <span v-if="!passwordVisible" class="material-symbols-outlined svg">visibility</span>
-        <span v-else class="material-symbols-outlined svg">visibility_off</span>
-      </button>
+    <div :style="{ opacity: passwordIndicatorVisible ? '100%' : '0%' }" class="indicator">{{ passwordEntropyAsTime }}
     </div>
-    <div class="dropdown surface">
-      <div class="textbox">
+    <div class="section_main__password">
+      <input @focus="passwordIndicatorVisible = true" @focusout="passwordIndicatorVisible = false"
+        :type="passwordVisible ? 'text' : 'password'" @input="generate" v-model="masterPassword"
+        placeholder="Enter the master password" />
+      <button @click="passwordVisible = !passwordVisible" v-if="!passwordVisible"
+        class="material-symbols-outlined svg">visibility</button>
+      <button @click="passwordVisible = !passwordVisible" v-else
+        class="material-symbols-outlined svg">visibility_off</button>
+    </div>
+    <div class="section_main__salt dropdown">
+      <div class="section_main__salt_input">
         <input type="text" @keyup.enter="
           saveSalt();
         saltHistoryVisible = false" @input="generate" v-model="salt" @focus="saltHistoryVisible = true"
           @focusout="onDropdownUnfocused" placeholder="Enter a key (website name)" />
-        <button @click="saltHistoryVisible = !saltHistoryVisible">
-          <span v-if="!saltHistoryVisible" class="material-symbols-outlined svg">arrow_drop_down</span>
-          <span v-else class="material-symbols-outlined svg">arrow_drop_up</span>
-        </button>
+        <button @click="saltHistoryVisible = !saltHistoryVisible" v-if="!saltHistoryVisible"
+          class="material-symbols-outlined svg">arrow_drop_down</button>
+        <button @click="saltHistoryVisible = !saltHistoryVisible" v-else
+          class="material-symbols-outlined svg">arrow_drop_up</button>
       </div>
       <div v-if="saltHistoryVisible" class="dropdown-content">
         <div class="dropdown-list" v-if="historySearchResults.length > 0" v-for="item in historySearchResults">
@@ -50,28 +51,24 @@
       <div>{{ hashedPassword }}</div>
       <button @click="
         copyText(hashedPassword);
-      saveSalt(); ">
-        <span class="material-symbols-outlined svg">content_copy</span>
+      saveSalt(); " class="material-symbols-outlined svg">
+        content_copy
       </button>
     </div>
     <span v-if="!hasViewScrolled" class="expand material-symbols-outlined svg">expand_more</span>
-  </div>
-  <div class="view">
-    <div class="about">
-      <div class="about-flex">
-        <div>
-          <h1>About</h1>
-          <div style="text-align: center;">
-            This is a utility for managing website passwords without
-            storing them in a file or database. Passbirb generates
-            unique cryptographically-secure passwords on the fly
-            without saving any information.
-          </div>
-        </div>
-        <component :is="Codeblock" />
+  </section>
+  <section class="section_about about">
+    <div>
+      <h1>About</h1>
+      <div style="text-align: center;">
+        This is a utility for managing website passwords without
+        storing them in a file or database. Passbirb generates
+        unique cryptographically-secure passwords on the fly
+        without saving any information.
       </div>
     </div>
-  </div>
+    <component :is="Codeblock" />
+  </section>
 </template>
 
 <script lang="ts">
@@ -195,7 +192,7 @@ export default {
       let guesses = this.passwordEntropy
       const intervals = Object.entries({
         'milliseconds': 1,
-        'seconds': 4,
+        'seconds': 3,
         'minutes': 1.778,
         'hours': 1.778,
         'days': 1.38,
@@ -223,7 +220,7 @@ export default {
       if (guesses > 3) {
         return `${Math.floor(10 ** ((guesses + 18) % 1))}e${Math.floor(guesses + 18)} years`
       }
-      return (10**guesses).toFixed(1) + ' ' + currentTimescale
+      return (10 ** guesses).toFixed(1) + ' ' + currentTimescale
     },
     historySearchResults() {
       return this.saltHistory
@@ -254,9 +251,11 @@ export default {
 <style lang="scss">
 #main {
   margin: 0;
-  padding: 2rem 0 2rem 0;
+  padding: 0;
   width: 100vw;
   height: 100vh;
+  width: 100svw;
+  height: 100svh;
   box-sizing: border-box;
   position: fixed;
   overflow-y: auto;
@@ -268,7 +267,8 @@ export default {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 15px;
+  height: 15px;
 }
 
 /* Track */
@@ -280,7 +280,7 @@ export default {
 ::-webkit-scrollbar-thumb {
   transition: color 0.5s linear, background-color 0.5s linear;
   background: var(--md-scroll-thumb);
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
 }
 
 /* Handle on hover */
@@ -289,36 +289,47 @@ export default {
   background: var(--md-scroll-thumb-hover);
 }
 
-.view {
-  height: 70vh;
+section {
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  height: 100vh;
+  height: 100svh;
   width: 100%;
-  margin: 10% 0 0 0;
+  padding: 25vh 0 0 0;
+  padding: 25svh 0 0 0;
   // padding: 0 15%;
   box-sizing: border-box;
 
-  .about {
-    margin: 10%;
+  &.section_about {
+    padding: 10%;
 
-    .about-flex {
-      display: flex;
-      flex-direction: row;
-      gap: 5%;
+    display: flex;
+    flex-direction: row;
+    @media only screen and (max-width: 1000px) {
+      flex-direction: column;
+    }
+    height: fit-content;
+    gap: 2rem;
 
-      :first-child {
-        flex: 2
-      }
+    :first-child {
+      flex: 2;
+    }
 
-      :last-child {
-        flex: 1
-      }
+    :last-child {
+      flex: 1;
     }
   }
 
 
-  &.main>* {
-    max-width: 30%;
-    margin: 0 auto 3rem auto;
-    min-width: 20rem;
+  &.section_main {
+    &>*{
+      max-width: 40%;
+      margin: 0 auto 3rem auto;
+      min-width: 18rem;
+    }
   }
 
   h1 {
@@ -347,7 +358,7 @@ export default {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border: 1px solid var(--md-primary);
     margin: 2rem auto 0;
-    min-width: 15rem;
+    min-width: 16rem;
     max-width: 15%;
     overflow: unset;
     padding: 0.2rem;
@@ -367,9 +378,9 @@ export default {
     }
 
     button {
-      .svg {
-        color: var(--md-on-surface);
-      }
+      color: var(--md-on-surface);
+      width: fit-content;
+      height: fit-content;
 
       flex: 0;
       margin: 0;
@@ -391,7 +402,8 @@ export default {
     transition: opacity 0.2s linear;
   }
 
-  .surface {
+  .section_main__password,
+  .section_main__salt {
     // color: var(--md-on-surface);
     background-color: var(--md-surface-1);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -401,7 +413,8 @@ export default {
     z-index: 5;
   }
 
-  .textbox {
+  .section_main__password,
+  .section_main__salt_input {
     display: flex;
     flex-direction: row;
 
@@ -423,6 +436,38 @@ export default {
     button {
       border-radius: 0.2rem;
       color: var(--md-on-surface);
+      width: fit-content;
+      height: fit-content;
+    }
+  }
+
+  .dropdown-list {
+    display: flex;
+    flex-direction: row;
+    // margin: 0rem 0.5rem;
+
+    &:hover {
+      background-color: var(--md-surface-2);
+    }
+
+    button {
+      color: var(--md-on-surface);
+    }
+
+    button:first-child {
+      cursor: default;
+    }
+
+    &> :first-child {
+      text-align: left;
+      flex: 1;
+      padding: 1rem;
+      height: 100%;
+    }
+
+    &> :last-child {
+      height: 100%;
+      padding: 0.5rem auto;
     }
   }
 
@@ -525,15 +570,15 @@ export default {
   // }
 }
 
-.svg {
-  color: var(--md-on-background);
+// .svg {
+//   color: var(--md-on-background);
 
-  width: 1.3rem;
-  height: 1.3rem;
-  margin: 0.3rem;
-  box-sizing: border-box;
-  flex: none;
-}
+//   width: 1.3rem;
+//   height: 1.3rem;
+//   margin: 0.3rem;
+//   box-sizing: border-box;
+//   flex: none;
+// }
 
 button {
   border: none;
@@ -548,7 +593,9 @@ p {
   margin: 0;
 }
 
-#themeToggle {
+.theme_toggle {
+  color: var(--md-on-background);
+
   position: absolute;
   top: 0;
   left: 0;

@@ -16,7 +16,7 @@ export default {
 
 <template>
     <link rel="stylesheet" href="/Passbirb/prism.css">
-    <div style="background-color: var(--md-surface-0); padding: 2rem; border-radius: 1rem;">
+    <div style="background-color: var(--md-surface-0); padding: 2rem; border-radius: 1rem; overflow:auto;">
         <pre v-html="content"></pre>
     </div>
 </template>
