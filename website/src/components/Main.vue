@@ -80,22 +80,35 @@ const VERSION_ID = '0.4.1';
 let backgroundServiceWorker;
 
 if (window.Worker) {
-  backgroundServiceWorker = new Worker('background.js');
+  try {
+    backgroundServiceWorker = new Worker('background.js');
+  } catch {
+    console.log("Unable to load service worker");
+  }
 }
 
 function saveLocalStorage(state) {
-  localStorage.setItem(
-    'state',
-    JSON.stringify({ ...state, version: VERSION_ID })
-  );
+  try {
+    localStorage.setItem(
+      'state',
+      JSON.stringify({ ...state, version: VERSION_ID })
+    );
+  } catch {
+    console.log("Unable to set local storage");
+  }
 }
 
 function loadLocalStorage() {
-  let state = JSON.parse(localStorage.getItem('state'));
-  if (state?.version == VERSION_ID) {
-    return state;
-  } else {
-    localStorage.clear();
+  try {
+    let state = JSON.parse(localStorage.getItem('state'));
+    if (state?.version == VERSION_ID) {
+      return state;
+    } else {
+      localStorage.clear();
+      return null;
+    }
+  } catch {
+    console.log("Unable to set local storage");
     return null;
   }
 }
@@ -308,9 +321,11 @@ section {
 
     display: flex;
     flex-direction: row;
+
     @media only screen and (max-width: 1000px) {
       flex-direction: column;
     }
+
     height: fit-content;
     gap: 2rem;
 
@@ -325,7 +340,7 @@ section {
 
 
   &.section_main {
-    &>*{
+    &>* {
       max-width: 40%;
       margin: 0 auto 3rem auto;
       min-width: 18rem;
