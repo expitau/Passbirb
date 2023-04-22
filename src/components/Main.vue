@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    <div class="result" v-if=" masterPassword.length > 0 && salt.length > 0 ">
+    <div style="opacity: 1" class="result" :style="{opacity: masterPassword.length > 0 && salt.length > 0 ? 1 : 0}">
       <div>{{ hashedPassword }}</div>
       <button @click="
         copyText(hashedPassword);
@@ -381,7 +381,7 @@ section {
       // margin: 0 auto 3rem auto;
       // min-width: 18rem;
       width: 100%;
-      margin: 1.5rem auto;
+      margin: 0 auto 3rem auto;
     }
   }
 
@@ -420,6 +420,7 @@ section {
     display: flex;
     flex-direction: row;
     font-size: small;
+    transition: opacity 0.2s ease-in-out;
 
     div {
       color: var(--md-on-surface);
@@ -612,7 +613,7 @@ button {
   border: none;
   margin: auto;
   background: none;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
 }
 
