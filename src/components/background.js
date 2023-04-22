@@ -17,7 +17,6 @@ setInterval(update, 2000);
 function update() {
     if (ready && queued) {
         ready = false;
-        console.log("worker run")
         generatePassword(queued[0], queued[1])
             .then(postMessage)
             .finally(() => {
