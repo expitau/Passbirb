@@ -8,38 +8,46 @@
       <input @focus="passwordIndicatorVisible = true" @focusout="passwordIndicatorVisible = false"
         :type="passwordVisible ? 'text' : 'password'" @input="generate" v-model="masterPassword"
         placeholder="Enter the master password" />
-      <button @click="passwordVisible = !passwordVisible" v-if="!passwordVisible"
-        class="material-symbols-outlined svg">visibility</button>
-      <button @click="passwordVisible = !passwordVisible" v-else
-        class="material-symbols-outlined svg">visibility_off</button>
+      <button @click="passwordVisible = !passwordVisible" v-if="!passwordVisible" class="svg">
+        <icons.visibility />
+      </button>
+      <button @click="passwordVisible = !passwordVisible" v-else class="svg">
+        <icons.visibility_off />
+      </button>
     </div>
     <div class="section_main__salt dropdown">
       <div class="section_main__salt_input">
-        <input type="text" @keyup.enter="
-          saveSalt();
-        saltHistoryVisible = false" @input="generate" v-model="salt" @focus="saltHistoryVisible = true"
-          @focusout="onDropdownUnfocused" placeholder="Enter a key (website name)" />
-        <button @click="saltHistoryVisible = !saltHistoryVisible" v-if="!saltHistoryVisible"
-          class="material-symbols-outlined svg">arrow_drop_down</button>
-        <button @click="saltHistoryVisible = !saltHistoryVisible" v-else
-          class="material-symbols-outlined svg">arrow_drop_up</button>
+        <input type="text" @keyup.enter="saveSalt();
+        saltHistoryVisible = false" @input=" generate " v-model="salt" @focus=" saltHistoryVisible = true "
+          @focusout=" onDropdownUnfocused " placeholder="Enter a key (website name)" />
+        <button @click=" saltHistoryVisible = !saltHistoryVisible " v-if=" !saltHistoryVisible " class="svg">
+          <icons.arrow_drop_down />
+        </button>
+        <button @click=" saltHistoryVisible = !saltHistoryVisible " v-else class="svg">
+          <icons.arrow_drop_up />
+        </button>
       </div>
-      <div v-if="saltHistoryVisible" class="dropdown-content">
-        <div class="dropdown-list" v-if="historySearchResults.length > 0" v-for="item in historySearchResults">
+      <div v-if=" saltHistoryVisible " class="dropdown-content">
+        <div class="dropdown-list" v-if=" historySearchResults.length > 0 "
+          v-for="                   item                    in                    historySearchResults                   ">
           <button @click="
             salt = item.value;
-          saltHistoryVisible = false;
-          generate();
-          saveSalt();">
+            saltHistoryVisible = false;
+            generate();
+            saveSalt();
+          ">
             {{ item.value }}
           </button>
           <button @click="
             saltHistory.splice(item.idx, 1);
-          saveAppState();">
-            <span class="material-symbols-outlined svg">close</span>
+            saveAppState();
+          ">
+            <span class="svg">
+              <icons.close />
+            </span>
           </button>
         </div>
-        <div v-else-if="saltHistory.length > 0" style="padding: 0.5rem">
+        <div v-else-if=" saltHistory.length > 0 " style="padding: 0.5rem">
           No results
         </div>
         <div v-else style="padding: 0.5rem">
@@ -47,16 +55,21 @@
         </div>
       </div>
     </div>
-    <div class="result" v-if="masterPassword.length > 0 && salt.length > 0">
+    <div class="result" v-if=" masterPassword.length > 0 && salt.length > 0 ">
       <div>{{ hashedPassword }}</div>
       <button @click="
         copyText(hashedPassword);
-      saveSalt(); " class="material-symbols-outlined svg">
-        content_copy
+        saveSalt();
+      " class="svg">
+        <icons.content_copy />
       </button>
     </div>
-    <span v-if="!hasViewScrolled" class="expand material-symbols-outlined svg">expand_more</span>
+    <div style="height: 8rem"></div>
+    <span v-if=" !hasViewScrolled " class="expand svg">
+      <icons.expand_more />
+    </span>
   </section>
+
   <section class="section_about about">
     <div>
       <h1>About</h1>
@@ -67,14 +80,17 @@
         without saving any information.
       </div>
     </div>
-    <component :is="Codeblock" />
+    <pre
+      class="code_block"> <code class='language-javascript' >(() => {console.log('Bookmarklet coming soon!')}())</code></pre>
   </section>
 </template>
 
 <script>
-import Codeblock from './Codeblock.vue';
-import { shallowRef } from 'vue';
 import zxcvbn from 'zxcvbn';
+
+import generatePassword from './password.js'
+
+import backgroundWorker from './background.js?worker'
 const VERSION_ID = '0.4.1';
 
 // Service to compute hashes in non-blocking thread
@@ -82,9 +98,9 @@ let backgroundServiceWorker;
 
 if (window.Worker) {
   try {
-    backgroundServiceWorker = new Worker('background.js');
-  } catch {
-    console.log("Unable to load service worker");
+    backgroundServiceWorker = new backgroundWorker();
+  } catch (error) {
+    console.log(`Unable to load service worker:\n${error}`);
   }
 }
 
@@ -138,7 +154,6 @@ export default {
       salt: '',
       hashedPassword: '',
       darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
-      Codeblock: shallowRef(Codeblock),
       hasViewScrolled: false,
       passwordIndicatorVisible: false,
       ...loadLocalStorage(),
@@ -159,10 +174,8 @@ export default {
           this.salt,
         ]);
       } else {
-        window
-          // @ts-ignore
-          .generatePassword(this.masterPassword, this.salt)
-          .then((res) => (this.hashedPassword = res));
+        generatePassword(this.masterPassword, this.salt)
+          .then((res) => {this.hashedPassword = res});
       }
     },
     saveSalt() {
@@ -261,19 +274,33 @@ export default {
 };
 </script>
 
+<script setup>
+import icons from './icons'
+</script>
+
 <style lang="scss">
 body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
+  padding: 0 auto;
+
+  background-color: var(--md-background);
+
+  * {
+    color: var(--md-on-background);
+  }
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
   box-sizing: border-box;
   position: fixed;
   overflow-y: auto;
   overflow-x: hidden;
-
-  background-color: var(--md-background);
-  color: var(--md-on-background);
 }
 
 /* width */
@@ -308,9 +335,21 @@ section {
 
   height: 100vh;
   width: 100%;
-  padding: 50vh 0 0 0;
-  // padding: 0 15%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: 600px) {
+    padding: 0 1rem;
+  }
+
+  padding: 0 20%;
+
+  .language-javascript {
+    background-color: var(--md-surface-1) !important;
+  }
 
   &.section_about {
     padding: 10%;
@@ -321,6 +360,7 @@ section {
     @media only screen and (max-width: 1000px) {
       flex-direction: column;
     }
+
 
     height: fit-content;
     gap: 2rem;
@@ -337,9 +377,11 @@ section {
 
   &.section_main {
     &>* {
-      max-width: 40%;
-      margin: 0 auto 3rem auto;
-      min-width: 18rem;
+      // max-width: 40%;
+      // margin: 0 auto 3rem auto;
+      // min-width: 18rem;
+      width: 100%;
+      margin: 1.5rem auto;
     }
   }
 
@@ -564,32 +606,7 @@ section {
       opacity: 0%;
     }
   }
-
-  // .item {
-  //     display: flex;
-  //     flex-direction: row;
-  //     width: 100%;
-  //     margin: 0 auto;
-
-  //     :first-child {
-  //         flex: 1;
-  //         display: flex;
-  //         flex-direction: column;
-  //         justify-content: center;
-  //         padding: 0rem 0rem 0rem 1rem;
-  //     }
-  // }
 }
-
-// .svg {
-//   color: var(--md-on-background);
-
-//   width: 1.3rem;
-//   height: 1.3rem;
-//   margin: 0.3rem;
-//   box-sizing: border-box;
-//   flex: none;
-// }
 
 button {
   border: none;
@@ -605,7 +622,8 @@ p {
 }
 
 .theme_toggle {
-  color: var(--md-on-background);
+  // color: var(--md-on-background);
+  // color: yellow;
 
   position: absolute;
   top: 0;

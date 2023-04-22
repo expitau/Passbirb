@@ -1,10 +1,12 @@
+import argon2 from 'argon2-wasm'
+
 /**
  * Generates a password
  * @param {String} master The master key
  * @param {String} data The domain, version, username, and other associated data to generate the password for
  * @returns {String} A hardened password for the site
  */
-async function generatePassword(master, data) {
+export default async function generatePassword(master, data) {
     /**
      * Generates a SHA256 hash as an array of bytes
      * @param {String} message The message to hash
@@ -27,7 +29,7 @@ async function generatePassword(master, data) {
      * @returns A base64 digest
      */
     function b64digest(buffer) {
-        return window.btoa(
+        return btoa(
             String.fromCharCode.apply(null, new Uint8Array(buffer))
         );
     }
@@ -41,9 +43,17 @@ async function generatePassword(master, data) {
             mem: 1024, // Use 1024kB memory
             hashLen: 15, // Output 15 bytes of hash (15 * 8 / 6 = 20 Base64 characters)
             parallelism: 4, // Use 4 threads
-            type: argon2.ArgonType.Argon2id, // Harden against both side-channel and GPU cracking
+            type: argon2.types.Argon2id, // Harden against both side-channel and GPU cracking
         })
     ).encoded;
+    // let encoded = argon2.hash(master, {
+    //     salt: b64digest(await sha256(data)), // Base64 encoding of sha256(data)
+    //     timeCost: 20, // Apply 20 iterations
+    //     memoryCost: 1024, // Use 1024kB memory
+    //     hashLength: 15, // Output 15 bytes of hash (15 * 8 / 6 = 20 Base64 characters)
+    //     parallelism: 4, // Use 4 threads
+    //     type: argon2.argon2id, // Harden against both side-channel and GPU cracking
+    // })
 
     // The base64 hash of the master password without metadata
     let hash = encoded.split('$').pop();
