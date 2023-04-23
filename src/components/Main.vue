@@ -65,7 +65,7 @@
       </button>
     </div>
     <div style="height: 8rem"></div>
-    <span v-if=" !hasViewScrolled " class="expand svg">
+    <span class="expand svg" :class="{invisible: hasViewScrolled}">
       <icons.expand_more />
     </span>
   </section>
@@ -88,9 +88,9 @@
 <script>
 import zxcvbn from 'zxcvbn';
 
-import generatePassword from './password.js'
+import generatePassword from '../helpers/password.js'
 
-import backgroundWorker from './background.js?worker'
+import backgroundWorker from '../helpers/background.js?worker'
 const VERSION_ID = '0.4.1';
 
 // Service to compute hashes in non-blocking thread
@@ -141,9 +141,10 @@ function showMessage(message) {
 
 export default {
   created() {
-    // document.getElementById('main').onscroll = () => {
-    //   this.hasViewScrolled = true;
-    // };
+    document.getElementById("app").onscroll = () => {
+      console.log("scroll")
+      this.hasViewScrolled = true;
+    };
   },
   data() {
     return {
@@ -275,7 +276,7 @@ export default {
 </script>
 
 <script setup>
-import icons from './icons'
+import icons from '../helpers/icons'
 </script>
 
 <style lang="scss">
@@ -586,6 +587,8 @@ section {
     margin: 0 auto;
     text-align: center;
     animation: drop 3s ease-in-out infinite;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0;
   }
 
   @keyframes drop {
