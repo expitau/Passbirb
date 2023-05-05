@@ -100,8 +100,9 @@
         </div>
       </div>
     </div>
-    <pre
-      class="code_block"> <code class='language-javascript' >(() => {console.log('Bookmarklet coming soon!')}())</code></pre>
+    <h1 style="margin-top: 10rem;">Bookmarklet</h1>
+    <div style="text-align: center;">The password generation script is too large to contain in a bookmarklet. The following bookmarklet downloads the password generation script from <a href='https://github.com/expitau-dev/Passbirb/blob/main/src/public/passbirb.js'>https://expitau-dev.github.io/Passbirb/passbirb.js</a> and verifies its integrity before running it.</div>
+    <pre class="code_block"> <code class='language-javascript' >{{ bookmarkletText }}</code></pre>
   </section>
 </template>
 
@@ -112,7 +113,12 @@ import zxcvbn from 'zxcvbn';
 import generatePassword from '../helpers/password.js'
 
 import backgroundWorker from '../helpers/background.js?worker'
-const VERSION_ID = '0.4.1';
+
+import bookmarklet from '../helpers/bookmarklet.js?raw'
+import bookmarkletTarget from '../public/passbirb.js?raw'
+import hljs from 'highlight.js';
+
+const VERSION_ID = '0.5.0';
 
 // Service to compute hashes in non-blocking thread
 let backgroundServiceWorker;
@@ -160,11 +166,29 @@ function showMessage(message) {
   });
 }
 
+async function computeHash(text) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
 export default {
   created() {
     document.getElementById("app").onscroll = () => {
       this.hasViewScrolled = true;
     };
+  },
+  mounted() {
+    computeHash(bookmarkletTarget).then((hash) => {
+      this.bookmarkletText = this.bookmarkletText.replace(/<<HASH>>/g, hash);
+    }).catch((error) => {
+      console.error('Error computing hash:', error);
+    }).finally(() => {
+      hljs.highlightAll()
+    });
   },
   data() {
     return {
@@ -177,6 +201,7 @@ export default {
       darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
       hasViewScrolled: false,
       passwordIndicatorVisible: false,
+      bookmarkletText: bookmarklet,
       ...loadLocalStorage(),
     };
   },
@@ -377,7 +402,6 @@ section {
 
 
     height: fit-content;
-    gap: 2rem;
 
     &>:nth-child(1) {
       margin-bottom: 4rem;
