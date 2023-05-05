@@ -18,36 +18,36 @@
     <div class="section_main__salt dropdown">
       <div class="section_main__salt_input">
         <input type="text" @keyup.enter="saveSalt();
-        saltHistoryVisible = false" @input=" generate " v-model="salt" @focus=" saltHistoryVisible = true "
-          @focusout=" onDropdownUnfocused " placeholder="Enter a key (website name)" />
-        <button @click=" saltHistoryVisible = !saltHistoryVisible " v-if=" !saltHistoryVisible " class="svg">
+        saltHistoryVisible = false" @input="generate" v-model="salt" @focus=" saltHistoryVisible = true"
+          @focusout="onDropdownUnfocused" placeholder="Enter a key (website name)" />
+        <button @click=" saltHistoryVisible = !saltHistoryVisible" v-if="!saltHistoryVisible" class="svg">
           <icons.arrow_drop_down />
         </button>
-        <button @click=" saltHistoryVisible = !saltHistoryVisible " v-else class="svg">
+        <button @click=" saltHistoryVisible = !saltHistoryVisible" v-else class="svg">
           <icons.arrow_drop_up />
         </button>
       </div>
-      <div v-if=" saltHistoryVisible " class="dropdown-content">
-        <div class="dropdown-list" v-if=" historySearchResults.length > 0 "
+      <div v-if="saltHistoryVisible" class="dropdown-content">
+        <div class="dropdown-list" v-if="historySearchResults.length > 0"
           v-for="                   item                    in                    historySearchResults                   ">
           <button @click="
             salt = item.value;
-            saltHistoryVisible = false;
-            generate();
-            saveSalt();
+          saltHistoryVisible = false;
+          generate();
+          saveSalt();
           ">
             {{ item.value }}
           </button>
           <button @click="
             saltHistory.splice(item.idx, 1);
-            saveAppState();
+          saveAppState();
           ">
             <span class="svg">
               <icons.close />
             </span>
           </button>
         </div>
-        <div v-else-if=" saltHistory.length > 0 " style="padding: 0.5rem">
+        <div v-else-if="saltHistory.length > 0" style="padding: 0.5rem">
           No results
         </div>
         <div v-else style="padding: 0.5rem">
@@ -55,17 +55,17 @@
         </div>
       </div>
     </div>
-    <div style="opacity: 1" class="result" :style="{opacity: masterPassword.length > 0 && salt.length > 0 ? 1 : 0}">
+    <div style="opacity: 1" class="result" :style="{ opacity: masterPassword.length > 0 && salt.length > 0 ? 1 : 0 }">
       <div>{{ hashedPassword }}</div>
       <button @click="
         copyText(hashedPassword);
-        saveSalt();
+      saveSalt();
       " class="svg">
         <icons.content_copy />
       </button>
     </div>
     <div style="height: 8rem"></div>
-    <span class="expand svg" :class="{invisible: hasViewScrolled}">
+    <span class="expand svg" :class="{ invisible: hasViewScrolled }">
       <icons.expand_more />
     </span>
   </section>
@@ -76,8 +76,28 @@
       <div style="text-align: center;">
         This is a utility for managing website passwords without
         storing them in a file or database. Passbirb generates
-        unique cryptographically-secure passwords on the fly
-        without saving any information.
+        unique, cryptographically-secure passwords on the fly
+        without saving any information on a server.
+      </div>
+    </div>
+    <div>
+      <div>
+        <icons.lock style="fill: var(--md-secondary)" />
+        <div style="text-align: center;">
+          It is cryptographically infeasible to generate new passwords from any set of existing ones.
+        </div>
+      </div>
+      <div>
+        <icons.key style="fill: var(--md-secondary)" />
+        <div style="text-align: center;">
+          Your passwords are accessible from anywhere, as long as you know your master password.
+        </div>
+      </div>
+      <div>
+        <icons.scan_delete style="fill: var(--md-secondary)" />
+        <div style="text-align: center;">
+          Your master password is never stored anywhere, all passwords are computed locally.
+        </div>
       </div>
     </div>
     <pre
@@ -86,6 +106,7 @@
 </template>
 
 <script>
+// TODO: Change to script setup
 import zxcvbn from 'zxcvbn';
 
 import generatePassword from '../helpers/password.js'
@@ -142,7 +163,6 @@ function showMessage(message) {
 export default {
   created() {
     document.getElementById("app").onscroll = () => {
-      console.log("scroll")
       this.hasViewScrolled = true;
     };
   },
@@ -176,7 +196,7 @@ export default {
         ]);
       } else {
         generatePassword(this.masterPassword, this.salt)
-          .then((res) => {this.hashedPassword = res});
+          .then((res) => { this.hashedPassword = res });
       }
     },
     saveSalt() {
@@ -355,23 +375,29 @@ section {
   &.section_about {
     padding: 10%;
 
-    display: flex;
-    flex-direction: row;
-
-    @media only screen and (max-width: 1000px) {
-      flex-direction: column;
-    }
-
 
     height: fit-content;
     gap: 2rem;
 
-    :first-child {
-      flex: 2;
+    &>:nth-child(1) {
+      margin-bottom: 4rem;
     }
 
-    :last-child {
-      flex: 1;
+    &>:nth-child(2) {
+      display: flex;
+      flex-direction: row;
+
+      @media only screen and (max-width: 1000px) {
+        flex-direction: column;
+      }
+
+      * {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+        flex: 1
+      }
     }
   }
 
@@ -667,5 +693,9 @@ p {
   85% {
     opacity: 1;
   }
+}
+
+.invisible {
+  opacity: 0 !important;
 }
 </style>

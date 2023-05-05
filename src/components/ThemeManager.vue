@@ -54,7 +54,7 @@ body:has(.lightMode) {
     --md-surface-2: #ffffff;
     --md-surface-3: #ffffff;
     --md-primary: #6200ee;
-    --md-secondary: #03dac6;
+    --md-secondary: #000000;
     --md-on-background: #000000;
     --md-on-surface: #000000;
     --md-on-primary: #ffffff;
@@ -72,7 +72,7 @@ body:has(.darkMode) {
     --md-surface-2: #252525;
     --md-surface-3: #272727;
     --md-primary: #bb86fc;
-    --md-secondary: #03dac6;
+    --md-secondary: #bb86fc;
     --md-on-background: #ffffff;
     --md-on-surface: #ffffff;
     --md-on-primary: #000000;
