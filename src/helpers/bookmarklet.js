@@ -26,7 +26,7 @@ javascript: (function () {
             })
     }
 
-    const scriptUrl = 'https://raw.githubusercontent.com/expitau-dev/Passbirb/main/dist/bookmarklet/bookmarklet.js';
+    const scriptUrl = 'https://raw.githubusercontent.com/expitau-dev/Passbirb/main/dist/bookmarklet/bookmarklet.umd.cjs';
     const scriptHash = '2a06f59a5c811008970584c7d2439098cb44887453b0517193684ee506716265';
 
     fetch(scriptUrl)
