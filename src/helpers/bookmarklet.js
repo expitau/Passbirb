@@ -20,7 +20,7 @@ javascript: (function () {
     }
 
     const scriptUrl = 'https://raw.githubusercontent.com/expitau-dev/Passbirb/main/dist/bookmarklet/bookmarklet.umd.cjs';
-    const scriptHash = '6f1d1090cf33bd18e455751e3f2a73962c994409d53c1664dffad78643922790';
+    const scriptHash = '301e798b6732d3586566d5f622a6f8bba081e4725c8db7538e89da0d58fbe0fc';
 
     fetch(scriptUrl)
         .then(response => {

@@ -1008,5 +1008,5 @@ async function dB(t, a) {
   }
   return Q.match(/.{4}[0-9]/g) || (Q = F(0, Q, "1")), Q.match(/.{4}[a-z]/g) || (Q = F(1, Q, "a")), Q.match(/.{4}[A-Z]/g) || (Q = F(2, Q, "A")), Q.match(/.{4}[\-\_]/g) || (Q = F(3, Q, "-")), Q;
 }
-let lB = prompt("Enter the master password"), hB = prompt("Enter a salt:", location.hostname.split(".").slice(-2, -1)[0] + ":0");
+let lB = prompt("Enter the master password"), hB = prompt("Enter a salt", location.hostname.split(".").slice(-2, -1)[0] + ":0");
 dB(lB, hB).then(alert);
