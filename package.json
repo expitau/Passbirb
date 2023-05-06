@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "pnpm build:bookmarklet && pnpm build:web",
+    "build:bookmarklet": "vite build --mode bookmarklet",
+    "build:web": "vite build --mode web",
     "preview": "vite preview",
     "downloadIcons": "node ./scripts/downloadIcons.js"
   },
