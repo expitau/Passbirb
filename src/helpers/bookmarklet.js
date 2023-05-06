@@ -1,11 +1,4 @@
 javascript: (function () {
-    function loadScript(url, callback) {
-        const script = document.createElement('script');
-        script.src = url;
-        script.onload = callback;
-        document.head.appendChild(script);
-    }
-
     async function computeHash(text) {
         const encoder = new TextEncoder();
         const data = encoder.encode(text);
