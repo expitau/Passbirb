@@ -1,4 +1,5 @@
 import generatePassword from "./password.js";
 
-// alert("This is a demo bookmarklet. Full bookmarklet coming soon!")
-generatePassword("asd","asd").then(alert)
+let masterPassword = prompt("Enter the master password")
+let salt = prompt("Enter a salt:", location.hostname.split('.').slice(-2, -1)[0] + ":0")
+generatePassword(masterPassword, salt).then(alert)

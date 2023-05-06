@@ -28,12 +28,12 @@ function ze(t) {
 function $e(t) {
   throw new Error('Could not dynamically require "' + t + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
 }
-var mA = {}, AB = {
+var SA = {}, AB = {
   get exports() {
-    return mA;
+    return SA;
   },
   set exports(t) {
-    mA = t;
+    SA = t;
   }
 };
 const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -55,12 +55,12 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
       if (c = typeof window == "object", T = typeof importScripts == "function", b = typeof process == "object" && typeof $e == "function" && !c && !T, AA = !c && !b && !T, A.ENVIRONMENT)
         throw new Error("Module.ENVIRONMENT has been deprecated. To force the environment, use the ENVIRONMENT compile-time option (for example, -s ENVIRONMENT=web or -s ENVIRONMENT=node)");
       i(typeof A.memoryInitializerPrefixURL > "u", "Module.memoryInitializerPrefixURL option was removed, use Module.locateFile instead"), i(typeof A.pthreadMainPrefixURL > "u", "Module.pthreadMainPrefixURL option was removed, use Module.locateFile instead"), i(typeof A.cdInitializerPrefixURL > "u", "Module.cdInitializerPrefixURL option was removed, use Module.locateFile instead"), i(typeof A.filePackagePrefixURL > "u", "Module.filePackagePrefixURL option was removed, use Module.locateFile instead");
-      var m = "";
+      var S = "";
       function eA(e) {
-        return A.locateFile ? A.locateFile(e, m) : m + e;
+        return A.locateFile ? A.locateFile(e, S) : S + e;
       }
       if (b) {
-        m = __dirname + "/";
+        S = __dirname + "/";
         var L, P;
         A.read = function(B, I) {
           var E;
@@ -88,7 +88,7 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
           quit(e);
         });
       else if (c || T)
-        c ? document.currentScript && (m = document.currentScript.src) : m = self.location.href, C && (m = C), m.indexOf("blob:") !== 0 ? m = m.substr(0, m.lastIndexOf("/") + 1) : m = "", A.read = function(B) {
+        c ? document.currentScript && (S = document.currentScript.src) : S = self.location.href, C && (S = C), S.indexOf("blob:") !== 0 ? S = S.substr(0, S.lastIndexOf("/") + 1) : S = "", A.read = function(B) {
           var I = new XMLHttpRequest();
           return I.open("GET", B, !1), I.send(null), I.responseText;
         }, T && (A.readBinary = function(B) {
@@ -190,7 +190,7 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
             G[e >> 2] = B;
             break;
           case "i64":
-            tempI64 = [B >>> 0, (tempDouble = B, +Te(tempDouble) >= 1 ? tempDouble > 0 ? (Se(+Ne(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+pe((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], G[e >> 2] = tempI64[0], G[e + 4 >> 2] = tempI64[1];
+            tempI64 = [B >>> 0, (tempDouble = B, +Te(tempDouble) >= 1 ? tempDouble > 0 ? (me(+Ne(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+pe((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], G[e >> 2] = tempI64[0], G[e + 4 >> 2] = tempI64[1];
             break;
           case "float":
             GA[e >> 2] = B;
@@ -217,13 +217,13 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
         }
         if (D === "i8")
           return e.subarray || e.slice ? v.set(e, n) : v.set(new Uint8Array(e), n), n;
-        for (var N = 0, S, hA, wA; N < s; ) {
+        for (var N = 0, m, hA, wA; N < s; ) {
           var NA = e[N];
-          if (S = D || B[N], S === 0) {
+          if (m = D || B[N], m === 0) {
             N++;
             continue;
           }
-          i(S, "Must know what type to store in allocate!"), S == "i64" && (S = "i32"), Ae(n + N, NA, S), wA !== S && (hA = BA(S), wA = S), N += hA;
+          i(m, "Must know what type to store in allocate!"), m == "i64" && (m = "i32"), Ae(n + N, NA, m), wA !== m && (hA = BA(m), wA = m), N += hA;
         }
         return n;
       }
@@ -261,8 +261,8 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
           if (s = e[B++] & 63, (E & 240) == 224 ? E = (E & 15) << 12 | o << 6 | s : (D = e[B++] & 63, (E & 248) == 240 ? E = (E & 7) << 18 | o << 12 | s << 6 | D : (n = e[B++] & 63, (E & 252) == 248 ? E = (E & 3) << 24 | o << 18 | s << 12 | D << 6 | n : (H = e[B++] & 63, E = (E & 1) << 30 | o << 24 | s << 18 | D << 12 | n << 6 | H))), E < 65536)
             N += String.fromCharCode(E);
           else {
-            var S = E - 65536;
-            N += String.fromCharCode(55296 | S >> 10, 56320 | S & 1023);
+            var m = E - 65536;
+            N += String.fromCharCode(55296 | m >> 10, 56320 | m & 1023);
           }
         }
       }
@@ -415,8 +415,8 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
         vA.unshift(e);
       }
       i(Math.imul && Math.fround && Math.clz32 && Math.trunc, "this is a legacy browser, build with LEGACY_VM_SUPPORT");
-      var Te = Math.abs, pe = Math.ceil, Ne = Math.floor, Se = Math.min, Z = 0, j = null, gA = null, tA = {};
-      function me(e) {
+      var Te = Math.abs, pe = Math.ceil, Ne = Math.floor, me = Math.min, Z = 0, j = null, gA = null, tA = {};
+      function Se(e) {
         Z++, A.monitorRunDependencies && A.monitorRunDependencies(Z), e ? (i(!tA[e]), tA[e] = 1, j === null && typeof setInterval < "u" && (j = setInterval(function() {
           if (yA) {
             clearInterval(j), j = null;
@@ -498,7 +498,7 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
             w(H());
           });
         }
-        function S(w, y, iA) {
+        function m(w, y, iA) {
           if (typeof WebAssembly != "object")
             return g("No WebAssembly support found. Build with -s WASM=0 to target JavaScript instead."), u("no native wasm support detected"), !1;
           if (!(A.wasmMemory instanceof WebAssembly.Memory))
@@ -507,7 +507,7 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
           function U(X, EA) {
             s = X.exports, s.memory && D(s.memory), A.asm = s, A.usingWasm = !0, Ue("wasm-instantiate");
           }
-          if (me("wasm-instantiate"), A.instantiateWasm)
+          if (Se("wasm-instantiate"), A.instantiateWasm)
             try {
               return A.instantiateWasm(o, U);
             } catch (X) {
@@ -554,7 +554,7 @@ const eB = {}, BB = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
           }
           y.memoryBase || (y.memoryBase = A.STATIC_BASE), y.tableBase || (y.tableBase = 0);
           var x;
-          return x = S(w, y), i(x, "no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: http://kripken.github.io/emscripten-site/docs/compiling/WebAssembly.html#binaryen-methods"), x;
+          return x = m(w, y), i(x, "no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: http://kripken.github.io/emscripten-site/docs/compiling/WebAssembly.html#binaryen-methods"), x;
         };
       }
       Ge(), CA = $A, J = CA + 3424, LA.push();
@@ -839,9 +839,9 @@ var FA = {};
 FA.byteLength = tB;
 FA.toByteArray = EB;
 FA.fromByteArray = oB;
-var O = [], Y = [], IB = typeof Uint8Array < "u" ? Uint8Array : Array, SA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-for (var $ = 0, gB = SA.length; $ < gB; ++$)
-  O[$] = SA[$], Y[SA.charCodeAt($)] = $;
+var O = [], Y = [], IB = typeof Uint8Array < "u" ? Uint8Array : Array, mA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+for (var $ = 0, gB = mA.length; $ < gB; ++$)
+  O[$] = mA[$], Y[mA.charCodeAt($)] = $;
 Y["-".charCodeAt(0)] = 62;
 Y["_".charCodeAt(0)] = 63;
 function jA(t) {
@@ -891,7 +891,7 @@ let QB = "AGFzbQEAAAABYQ5gAAF/YAF/AGADf39/AX9gAn9/AX9gAX8Bf2ACf38AYAR/f39/AX9gAn
 var CB = rB.toByteArray(QB);
 if (!WebAssembly)
   throw new Error("WebAssembly not supported here.");
-var sB = mA, cB = CB, R = {
+var sB = SA, cB = CB, R = {
   printErr: console.error,
   setStatus: console.log,
   wasmBinary: cB
@@ -921,7 +921,7 @@ function fB(t) {
 function VA(t) {
   if (!R._argon2_hash)
     throw new Error("Error: _argon2_hash not available");
-  var a = t && t.time || 10, r = t && t.mem || 1024, C = t && t.parallelism || 1, h = WA(t && t.pass || "password"), A = t && t.pass ? t.pass.length : 8, Q = WA(t && t.salt || "somesalt"), F = t && t.salt ? t.salt.length : 8, c = R.allocate(new Array(t && t.hashLen || 32), "i8", R.ALLOC_NORMAL), T = t && t.hashLen || 32, b = R.allocate(new Array(512), "i8", R.ALLOC_NORMAL), AA = 512, m = t && t.type || 0, eA = 19, L;
+  var a = t && t.time || 10, r = t && t.mem || 1024, C = t && t.parallelism || 1, h = WA(t && t.pass || "password"), A = t && t.pass ? t.pass.length : 8, Q = WA(t && t.salt || "somesalt"), F = t && t.salt ? t.salt.length : 8, c = R.allocate(new Array(t && t.hashLen || 32), "i8", R.ALLOC_NORMAL), T = t && t.hashLen || 32, b = R.allocate(new Array(512), "i8", R.ALLOC_NORMAL), AA = 512, S = t && t.type || 0, eA = 19, L;
   try {
     var P = R._argon2_hash(
       a,
@@ -935,7 +935,7 @@ function VA(t) {
       T,
       b,
       AA,
-      m,
+      S,
       eA
     );
   } catch (BA) {
@@ -1008,4 +1008,5 @@ async function dB(t, a) {
   }
   return Q.match(/.{4}[0-9]/g) || (Q = F(0, Q, "1")), Q.match(/.{4}[a-z]/g) || (Q = F(1, Q, "a")), Q.match(/.{4}[A-Z]/g) || (Q = F(2, Q, "A")), Q.match(/.{4}[\-\_]/g) || (Q = F(3, Q, "-")), Q;
 }
-dB("asd", "asd").then(alert);
+let lB = prompt("Enter the master password"), hB = prompt("Enter a salt:", location.hostname.split(".").slice(-2, -1)[0] + ":0");
+dB(lB, hB).then(alert);
