@@ -20,7 +20,7 @@ javascript: (function () {
     }
 
     const scriptUrl = 'https://raw.githubusercontent.com/expitau-dev/Passbirb/main/dist/bookmarklet/bookmarklet.umd.cjs';
-    const scriptHash = '301e798b6732d3586566d5f622a6f8bba081e4725c8db7538e89da0d58fbe0fc';
+    const scriptHash = '3b4c2e7733866836e65ea902959097539bd7d6dbfa13c334f25f22bdfa78645f';
 
     fetch(scriptUrl)
         .then(response => {
@@ -30,7 +30,7 @@ javascript: (function () {
             return response.text();
         })
         .then(scriptContent => {
-            verifyAndExecuteScript(scriptContent, scriptHash);
+            verifyAndExecuteScript(scriptContent.trim(), scriptHash);
         })
         .catch(error => {
             alert(`FetchError when fetching the script: ${error}`);
