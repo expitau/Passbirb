@@ -115,7 +115,6 @@ import generatePassword from '../helpers/password.js'
 import backgroundWorker from '../helpers/background.js?worker'
 
 import bookmarklet from '../helpers/bookmarklet.js?raw'
-import bookmarkletTarget from '../public/passbirb.js?raw'
 import hljs from 'highlight.js';
 
 const VERSION_ID = '0.5.0';
@@ -176,19 +175,11 @@ async function computeHash(text) {
 }
 
 export default {
-  created() {
+  mounted() {
     document.getElementById("app").onscroll = () => {
       this.hasViewScrolled = true;
     };
-  },
-  mounted() {
-    computeHash(bookmarkletTarget).then((hash) => {
-      this.bookmarkletText = this.bookmarkletText.replace(/<<HASH>>/g, hash);
-    }).catch((error) => {
-      console.error('Error computing hash:', error);
-    }).finally(() => {
-      hljs.highlightAll()
-    });
+    hljs.highlightAll();
   },
   data() {
     return {

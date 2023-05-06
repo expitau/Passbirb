@@ -1,8 +1,7 @@
 import { defineConfig } from 'vite'
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
-import wasm from "vite-plugin-wasm";
-import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -30,6 +29,18 @@ export default defineConfig(({ command, mode }) => {
       base: '/Passbirb/',
       build: {
         outDir: 'dist/web'
+      }
+    },
+    bookmarklet: {
+      ...baseConfig,
+      publicDir: "public",
+      build: {
+        lib: {
+          entry: resolve(__dirname, 'src/lib/bookmarklet/main.js'),
+          name: 'bookmarklet',
+          fileName: 'bookmarklet',
+        },
+        outDir: 'dist/bookmarklet'
       }
     }
   }
