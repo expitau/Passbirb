@@ -100,9 +100,9 @@
         </div>
       </div>
     </div>
-    <h1 style="margin-top: 10rem;">Bookmarklet</h1>
+    <!-- <h1 style="margin-top: 10rem;">Bookmarklet</h1>
     <div style="text-align: center;">The password generation script is too large to contain in a bookmarklet. The following bookmarklet downloads the password generation script from <a href='https://github.com/expitau-dev/Passbirb/blob/main/src/public/passbirb.js'>https://expitau-dev.github.io/Passbirb/passbirb.js</a> and verifies its integrity before running it.</div>
-    <pre class="code_block"> <code class='language-javascript' >{{ bookmarkletText }}</code></pre>
+    <pre class="code_block"> <code class='language-javascript' >{{ bookmarkletText }}</code></pre> -->
   </section>
 </template>
 
