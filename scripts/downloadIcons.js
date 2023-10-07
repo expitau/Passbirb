@@ -14,6 +14,7 @@ let icons = {
     "scan_delete": {weight: 700, opticalSize: 48},
     "visibility_off": {},
     "visibility": {},
+    "globe_asia": {weight: 700, opticalSize: 48},
 }
 
 let outputDir = path.join(process.cwd(), 'src/assets/icons/');

@@ -17,6 +17,21 @@ export default {
             }, 3000);
         },
     },
+    watch: {
+        darkMode(newValue) {
+            document.body.classList.toggle('darkMode', newValue);
+            document.body.classList.toggle('lightMode', !newValue);
+        },
+        transitioning(newValue) {
+            document.body.classList.toggle('transitioning', newValue);
+        }
+    },
+    mounted() {
+        // Initial class setup based on the initial data values
+        document.body.classList.toggle('darkMode', this.darkMode);
+        document.body.classList.toggle('lightMode', !this.darkMode);
+        document.body.classList.toggle('transitioning', this.transitioning);
+    },
 };
 </script>
 <script setup>
@@ -24,30 +39,18 @@ import icons from '../helpers/icons'
 </script>
 
 <template>
-    <div :class="{
-        [darkMode ? 'darkMode' : 'lightMode']: true,
-        transitioning: transitioning,
-    }"></div>
     <button @click="changeTheme" v-if="darkMode" class="theme_toggle">
         <icons.light_mode />
     </button>
     <button @click="changeTheme" v-else="darkMode" class="theme_toggle material-symbols-outlined">
         <icons.dark_mode />
     </button>
-    <!-- <div :class="{
-            [darkMode ? 'darkMode' : 'lightMode']: true,
-            transitioning: transitioning,
-        }">
-            <div id="main"> -->
-    <!-- <slot /> -->
-    <!-- </div>
-        </div> -->
 </template>
 
 <style lang="scss">
 @use "sass:meta";
 
-body:has(.lightMode) {
+body.lightMode {
     --md-background: #fafafa;
     --md-surface-0: #ffffff;
     --md-surface-1: #ffffff;
@@ -61,11 +64,12 @@ body:has(.lightMode) {
     --md-on-secondary: #000000;
     --md-scroll-thumb: #888888;
     --md-scroll-thumb-hover: #666666;
+    --md-error: #b00020;
 
     @include meta.load-css("highlight.js/styles/github.css")
 }
 
-body:has(.darkMode) {
+body.darkMode {
     --md-background: #121212;
     --md-surface-0: #1e1e1e;
     --md-surface-1: #232323;
@@ -79,12 +83,13 @@ body:has(.darkMode) {
     --md-on-secondary: #000000;
     --md-scroll-thumb: #444444;
     --md-scroll-thumb-hover: #666666;
+    --md-error: #cf6679;
 
     @include meta.load-css("highlight.js/styles/github-dark.css")
 }
 
-body:has(.transitioning),
-body:has(.transitioning) * {
+body.transitioning,
+body.transitioning * {
     transition: color 1s linear, background-color 1s linear;
 }
 

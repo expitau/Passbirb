@@ -84,11 +84,11 @@
       <div>
         <icons.lock style="fill: var(--md-secondary)" />
         <div style="text-align: center;">
-          It is cryptographically infeasible to generate new passwords from any set of existing ones.
+          Generated passwords are secure, and cannot be reversed to obtain the master password.
         </div>
       </div>
       <div>
-        <icons.key style="fill: var(--md-secondary)" />
+        <icons.globe_asia style="fill: var(--md-secondary)" />
         <div style="text-align: center;">
           Your passwords are accessible from anywhere, as long as you know your master password.
         </div>
@@ -100,9 +100,17 @@
         </div>
       </div>
     </div>
-    <!-- <h1 style="margin-top: 10rem;">Bookmarklet</h1>
-    <div style="text-align: center;">The password generation script is too large to contain in a bookmarklet. The following bookmarklet downloads the password generation script from <a href='https://github.com/expitau-dev/Passbirb/blob/main/src/public/passbirb.js'>https://expitau-dev.github.io/Passbirb/passbirb.js</a> and verifies its integrity before running it.</div>
-    <pre class="code_block"> <code class='language-javascript' >{{ bookmarkletText }}</code></pre> -->
+    <h2 style="margin-top: 10rem;">Usage</h2>
+    <div style="margin-bottom: 1rem">Generating passwords is easy, and only takes a few seconds!</div>
+    <div style="margin-bottom: 0.5rem">1. Enter a secure master password, use the same one every time</div>
+    <div style="margin-bottom: 0.5rem">2. Enter the website name (or random characters for a one-time password!)</div>
+    <div style="margin-bottom: 0.5rem">3. (optionally) specify a tag with a colon ':' - The tag can be used to specify different accounts or regenerate passwords</div>
+    <img src="../assets/usage.gif" alt="Usage" style="width: 100%; max-width: 1000px; margin: 2rem auto;" />
+
+    <h2 style="margin-top: 10rem;">Bookmarklet</h2>
+    <div style="text-align: center;">The password generation script is too large to contain in a bookmarklet. The following bookmarklet downloads the password generation script from <a href='https://github.com/expitau-dev/Passbirb/blob/main/src/public/passbirb.js'>https://expitau-dev.github.io/Passbirb/passbirb.js</a> and verifies its integrity before running it. Copy-and-paste it as the url of a bookmark to generate passwords anywhere!</div>
+    <div class="warning">Caution: This code is vulnerable to prototype pollution. Do not enter your master password on malicious sites</div>
+    <pre class="code_block"> <code class='language-javascript' >{{ bookmarkletText }}</code></pre>
   </section>
 </template>
 
@@ -395,7 +403,7 @@ section {
     height: fit-content;
 
     &>:nth-child(1) {
-      margin-bottom: 4rem;
+      margin-bottom: 2rem;
     }
 
     &>:nth-child(2) {
@@ -437,6 +445,7 @@ section {
 
   h2 {
     color: var(--md-on-background);
+    font-size: 36px;
     font-weight: 400;
   }
 
@@ -446,6 +455,17 @@ section {
     text-transform: uppercase;
     font-size: small;
     margin: 0.8rem 0 0.4rem 0;
+  }
+
+  .warning {
+    background-color: var(--md-error);
+    color: var(--md-on-primary);
+    font-weight: 400;
+    font-size: small;
+    font-weight: bold;
+    margin: 0.8rem 0 0.4rem 0;
+    padding: 0.6rem;
+    border-radius: 0.2rem;
   }
 
   .result {
